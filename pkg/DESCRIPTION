@@ -1,0 +1,15 @@
+Package: ACEt
+Type: Package
+Title: Estimating age modification effect on genetic and environmental variance components in twin models
+Version: 1.2
+Date: 2016-01-16
+Author: Liang He
+Maintainer: Liang He <liang.he@duke.edu>
+Description: Two novel twin models that are able to estimate the dynamic behaviour of the variance components in the classical twin models with respect to age.
+License: GPL (>=2)
+Depends: splines, MASS
+Imports:
+    Rcpp (>= 0.11.1),
+    RcppArmadillo (>= 0.4.200.0)
+Encoding: latin1
+LinkingTo: BH, RcppArmadillo, Rcpp
