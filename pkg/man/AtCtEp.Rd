@@ -13,19 +13,20 @@ AtCtEp(data_m, data_d, knot_a = 8, knot_c = 8, eps = 0.1)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{data_m}{
-%%     ~~Describe \code{ph_m} here~~
+An \eqn{N_m} x 3 data matrix for MZ twins. \eqn{N_m} is the number of MZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
+
 }
   \item{data_d}{
-%%     ~~Describe \code{ph_d} here~~
+An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
 }
   \item{knot_a}{
-%%     ~~Describe \code{knot_a} here~~
+The number of knots of the B-spline for the A component. The default value is 5.
 }
   \item{knot_c}{
-%%     ~~Describe \code{knot_c} here~~
+The number of knots of the B-spline for the C component. The default value is 5.
 }
   \item{eps}{
-%%     ~~Describe \code{eps} here~~
+Tolerance for convergence of the EM algorithm iterations. The default value is 0.1.
 }
 }
 \details{
@@ -34,15 +35,23 @@ AtCtEp(data_m, data_d, knot_a = 8, knot_c = 8, eps = 0.1)
 \value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
+  
+  \item{var }{The estimated variance of the E component.}
+  \item{var_b_a }{The estimated variance for the penalized coefficient for the A components.}
+  \item{var_b_c }{The estimated variance for the penalized coefficient for the C components.}
+  \item{beta_c }{The estimated spline coefficients of the A component.}
+  \item{beta_a }{The estimated spline coefficients of the C component.}
+  \item{con }{The indicator of convergence of the optimization algorithm.}
+  \item{lik }{The minus log marginal likelihood.}
+  \item{knot_a }{The values of the knots for the A component.}
+  \item{knot_c }{The values of the knots for the C component.}
 %% ...
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Liang He
 }
 \note{
 %%  ~~further notes~~
@@ -54,49 +63,9 @@ AtCtEp(data_m, data_d, knot_a = 8, knot_c = 8, eps = 0.1)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(data_ace)
 
-num_m <- 10000
-num_d <- 10000
-
-T_m <- rep(1:50, each=100)
-T_d <- rep(1:50, each=100)
-
-var_c <- 1
-var_a <- 1
-var <- 1
-
-beta_c <- -0.20
-beta_a <- 2
-
-pheno_m <- matrix(0, num_m/2,2)	
-		
-for(i in 1:(num_m/2))
-{
-	var_ct <- var_c*(T_m[i]^beta_c)
-	var_at <- var_a*(3-10*((T_m[i]/50-0.5)^beta_a))
-	sigma <- matrix(c(var_at+var_ct+var,var_at+var_ct,var_at+var_ct,var_at+var_ct+var),2,2)
-
-	pheno_m[i,1:2] <- mvrnorm(1, rep(0,2), sigma)
-}
-
-pheno_d <- matrix(0, num_d/2,2)	
-		
-for(i in 1:(num_d/2))
-{
-	var_ct <- var_c*(T_d[i]^beta_c)
-	var_at <- var_a*(3-10*((T_d[i]/50-0.5)^beta_a))
-	sigma <- matrix(c(var_at+var_ct+var,0.5*var_at+var_ct,0.5*var_at+var_ct,var_at+var_ct+var),2,2)
-
-	pheno_d[i,1:2] <- mvrnorm(1, rep(0,2), sigma)
-}
-
-data_m <- cbind(pheno_m, T_m)
-data_d <- cbind(pheno_d, T_d)
-
-#result <- AtCtEp(data_m, data_d)
+result <- AtCtEp(data_ace$mz, data_ace$dz)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

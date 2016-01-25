@@ -14,16 +14,16 @@ plot_AtCEt <- function(AtCEt, data_m, data_d)
 
 	order <- 3
 	x <- seq(from=min(T_m, T_d), to=max(T_m, T_d), length.out=500)
-	bb <- splineDesign(model_cur$knots_e, x = x, ord=order, outer.ok = TRUE)
-	points_e <- exp(bb%*%model_cur$beta_e)
-	bb <- splineDesign(model_cur$knots_a, x = x, ord=order, outer.ok = TRUE)
-	points_a <- exp(bb%*%model_cur$beta_a)
+	bb_e <- splineDesign(model_cur$knots_e, x = x, ord=order, outer.ok = TRUE)
+	points_e <- exp(bb_e%*%model_cur$beta_e)
+	bb_a <- splineDesign(model_cur$knots_a, x = x, ord=order, outer.ok = TRUE)
+	points_a <- exp(bb_a%*%model_cur$beta_a)
 
 	l_a <- length(model_cur$beta_a)
 	l_e <- length(model_cur$beta_e)
 
-	plot(range(x), c(0,max(points_e, points_a, model_cur$var)+1), type = "n", xlab = "Age", ylab = "Variance",main =  "Variance of the A, C and E component over age")
-	lines(x, points_e, col = "red", lwd = 2)
+	plot(range(x), c(0,max(points_e, points_a, model_cur$var)+1), type = "n", xlab = "Age", ylab = "Variance",main =  "Variance curves of the A, C and E components")
+	lines(x, points_a, col = "red", lwd = 2)
 	
 	fisher <- solve(model_cur$hessian[2:(1+l_a+l_e),2:(1+l_a+l_e)])
 	
@@ -34,9 +34,9 @@ plot_AtCEt <- function(AtCEt, data_m, data_d)
 
 	for(i in 1:length(x))
 	{
-		sd[i] <- sqrt(exp(2*sum(bb[i,]*model_cur$beta_a))*(t(bb[i,])%*%fisher_a%*%bb[i,]))
-		lower[i] <- exp(sum(bb[i,]*model_cur$beta_a)) - 1.96*sd[i]
-		upper[i] <- exp(sum(bb[i,]*model_cur$beta_a)) + 1.96*sd[i]
+		sd[i] <- sqrt(exp(2*sum(bb_a[i,]*model_cur$beta_a))*(t(bb_a[i,])%*%fisher_a%*%bb_a[i,]))
+		lower[i] <- exp(sum(bb_a[i,]*model_cur$beta_a)) - 1.96*sd[i]
+		upper[i] <- exp(sum(bb_a[i,]*model_cur$beta_a)) + 1.96*sd[i]
 	}
 
 	lines(x, lower, col = "orange" ,lty = 2 , lwd = 0.6)
@@ -44,8 +44,8 @@ plot_AtCEt <- function(AtCEt, data_m, data_d)
 	polygon(c(x, rev(x)),c(upper, rev(lower)),col='grey',border = NA, lty=3, density=20)
 
 
-	bb <- splineDesign(model_cur$knots_a, x = x, ord=order, outer.ok = TRUE)
-	lines(x, points_a, col = "pink", lwd = 2)
+	#bb <- splineDesign(model_cur$knots_a, x = x, ord=order, outer.ok = TRUE)
+	lines(x, points_e, col = "pink", lwd = 2)
 	
 	fisher_e <- fisher[(1+l_a):(l_e+l_a),(1+l_a):(l_a+l_e)]
 	lower <- rep(NA, length(x))
@@ -54,9 +54,9 @@ plot_AtCEt <- function(AtCEt, data_m, data_d)
 
 	for(i in 1:length(x))
 	{
-		sd[i] <- sqrt(exp(2*sum(bb[i,]*model_cur$beta_e))*(t(bb[i,])%*%fisher_e%*%bb[i,]))
-		lower[i] <- exp(sum(bb[i,]*model_cur$beta_e)) - 1.96*sd[i]
-		upper[i] <- exp(sum(bb[i,]*model_cur$beta_e)) + 1.96*sd[i]
+		sd[i] <- sqrt(exp(2*sum(bb_e[i,]*model_cur$beta_e))*(t(bb_e[i,])%*%fisher_e%*%bb_e[i,]))
+		lower[i] <- exp(sum(bb_e[i,]*model_cur$beta_e)) - 1.96*sd[i]
+		upper[i] <- exp(sum(bb_e[i,]*model_cur$beta_e)) + 1.96*sd[i]
 	}
 
 	lines(x, lower, col = "yellow" ,lty = 2 , lwd = 0.6)

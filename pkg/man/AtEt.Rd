@@ -8,7 +8,7 @@ The AE(t) model
 The AE(t) model with the A and E variance components as functions with respect to age modelled by B-splines.
 }
 \usage{
-AtCtE(data_m, data_d, knot_a = 5, knot_e = 5)
+AtEt(data_m, data_d, knot_a = 5, knot_e = 5)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -22,7 +22,7 @@ AtCtE(data_m, data_d, knot_a = 5, knot_e = 5)
 %%     ~~Describe \code{knot_a} here~~
 }
   \item{knot_e}{
-%%     ~~Describe \code{knot_c} here~~
+%%     ~~Describe \code{knot_e} here~~
 }
 }
 \details{

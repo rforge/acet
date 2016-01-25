@@ -13,16 +13,16 @@ AtCtE(data_m, data_d, knot_a = 5, knot_c = 5)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{data_m}{
-%%     ~~Describe \code{data_m} here~~
+An \eqn{N_m} x 3 data matrix for MZ twins. \eqn{N_m} is the number of MZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
 }
   \item{data_d}{
-%%     ~~Describe \code{data_d} here~~
+An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
 }
   \item{knot_a}{
-%%     ~~Describe \code{knot_a} here~~
+The number of knots of the B-spline for the A component. The default value is 5.
 }
   \item{knot_c}{
-%%     ~~Describe \code{knot_c} here~~
+The number of knots of the B-spline for the C component. The default value is 5.
 }
 }
 \details{
@@ -31,15 +31,23 @@ AtCtE(data_m, data_d, knot_a = 5, knot_c = 5)
 \value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
+  \item{n_beta_a }{The number of spline coefficients for the A component.}
+  \item{n_beta_c }{The number of spline coefficients for the C component.}
+  \item{var }{The estimated variance of the E component.}
+  \item{beta_c }{The estimated spline coefficients of the A component.}
+  \item{beta_a }{The estimated spline coefficients of the C component.}
+  \item{hessian }{The approximated Hessian matrix from the minus log-likelihood.}
+  \item{con }{The indicator of convergence of the optimization algorithm.}
+  \item{lik }{The minus log-likelihood.}
+  \item{knots_a }{The values of the knots for the A component.}
+  \item{knots_c }{The values of the knots for the C component.}
 %% ...
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Liang He
 }
 \note{
 %%  ~~further notes~~
@@ -51,48 +59,9 @@ AtCtE(data_m, data_d, knot_a = 5, knot_c = 5)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-num_m <- 10000
-num_d <- 10000
+data(data_ace)
 
-T_m <- rep(1:50, each=100)
-T_d <- rep(1:50, each=100)
-
-var_c <- 1
-var_a <- 1
-var <- 1
-
-beta_c <- -0.20
-beta_a <- 2
-
-pheno_m <- matrix(0, num_m/2,2)	
-		
-for(i in 1:(num_m/2))
-{
-	var_ct <- var_c*(T_m[i]^beta_c)
-	var_at <- var_a*(3-10*((T_m[i]/50-0.5)^beta_a))
-	sigma <- matrix(c(var_at+var_ct+var,var_at+var_ct,var_at+var_ct,var_at+var_ct+var),2,2)
-
-	pheno_m[i,1:2] <- mvrnorm(1, rep(0,2), sigma)
-}
-
-pheno_d <- matrix(0, num_d/2,2)	
-		
-for(i in 1:(num_d/2))
-{
-	var_ct <- var_c*(T_d[i]^beta_c)
-	var_at <- var_a*(3-10*((T_d[i]/50-0.5)^beta_a))
-	sigma <- matrix(c(var_at+var_ct+var,0.5*var_at+var_ct,0.5*var_at+var_ct,var_at+var_ct+var),2,2)
-
-	pheno_d[i,1:2] <- mvrnorm(1, rep(0,2), sigma)
-}
-
-data_m <- cbind(pheno_m, T_m)
-data_d <- cbind(pheno_d, T_d)
-
-result <- AtCtE(data_m, data_d)
+result <- AtCtE(data_ace$mz, data_ace$dz)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

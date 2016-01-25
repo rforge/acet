@@ -88,7 +88,7 @@ RcppExport SEXP loglik_AtCEt_esp_c(SEXP var, SEXP b_a, SEXP b_e, SEXP pheno_m, S
 		D_d = D_d + log(det_d);
 	}
 	
-	double res = D_m + YSY_m + D_d + YSY_d;
+	double res = (D_m + YSY_m + D_d + YSY_d)/2;
    
     return(Rcpp::wrap(res));
 }
@@ -191,9 +191,9 @@ RcppExport SEXP gr_AtCEt_esp_c(SEXP var, SEXP b_a, SEXP b_e, SEXP pheno_m, SEXP 
 		}
 	}
 
-	double d_var = var_D_m - var_YSY_m + var_D_d - var_YSY_d;
-	arma::vec d_var_e = var_be_m + var_be_d;
-	arma::vec d_var_a = var_ba_m + var_ba_d;
+	double d_var = (var_D_m - var_YSY_m + var_D_d - var_YSY_d)/2;
+	arma::vec d_var_e = (var_be_m + var_be_d)/2;
+	arma::vec d_var_a = (var_ba_m + var_ba_d)/2;
 	
 	arma::vec res(1+num_a+num_e);
 	res(0) = d_var;

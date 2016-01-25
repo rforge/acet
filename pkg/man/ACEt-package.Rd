@@ -34,44 +34,10 @@ Maintainer: Liang He <liang.he@duke.edu>
 ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
-require(MASS)
 
-num_m <- 10000
-num_d <- 10000
+data(data_ace)
 
-T_m <- rep(1:50, each=100)
-T_d <- rep(1:50, each=100)
-
-var_c <- 1
-var_a <- 1
-var <- 1
-
-beta_c <- -0.20
-beta_a <- 2
-
-pheno_m <- matrix(0, num_m/2,2)	
-		
-for(i in 1:(num_m/2))
-{
-	 var_ct <- var_c*(T_m[i]^beta_c)
-	var_at <- var_a*(3-10*((T_m[i]/50-0.5)^beta_a))
-	sigma <- matrix(c(var_at+var_ct+var,var_at+var_ct,var_at+var_ct,var_at+var_ct+var),2,2)
-
-	pheno_m[i,1:2] <- mvrnorm(1, rep(0,2), sigma)
-}
-
-pheno_d <- matrix(0, num_d/2,2)	
-		
-for(i in 1:(num_d/2))
-{
-	 var_ct <- var_c*(T_d[i]^beta_c)
-	var_at <- var_a*(3-10*((T_d[i]/50-0.5)^beta_a))
-	sigma <- matrix(c(var_at+var_ct+var,0.5*var_at+var_ct,0.5*var_at+var_ct,var_at+var_ct+var),2,2)
-
-	pheno_d[i,1:2] <- mvrnorm(1, rep(0,2), sigma)
-}
-
-#AtCtE(cbind(pheno_m,T_m), cbind(pheno_d,T_d))
-#AtCtEp(cbind(pheno_m,T_m), cbind(pheno_d,T_d))
+AtCtE(data_ace$mz, data_ace$dz)
+AtCtEp(data_ace$mz, data_ace$dz)
 
 }
