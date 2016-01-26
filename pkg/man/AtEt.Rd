@@ -13,16 +13,16 @@ AtEt(data_m, data_d, knot_a = 5, knot_e = 5)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{data_m}{
-%%     ~~Describe \code{data_m} here~~
+An \eqn{N_m} x 3 data matrix for MZ twins. \eqn{N_m} is the number of MZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
 }
   \item{data_d}{
-%%     ~~Describe \code{data_d} here~~
+An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
 }
   \item{knot_a}{
-%%     ~~Describe \code{knot_a} here~~
+The number of knots of the B-spline for the A component. The default value is 5.
 }
   \item{knot_e}{
-%%     ~~Describe \code{knot_e} here~~
+The number of knots of the B-spline for the E component. The default value is 5.
 }
 }
 \details{
