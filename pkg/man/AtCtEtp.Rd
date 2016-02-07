@@ -1,5 +1,5 @@
-\name{AtCtEp}
-\alias{AtCtEp}
+\name{AtCtEtp}
+\alias{AtCtEtp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 The ACE(t)-p model 
@@ -8,7 +8,7 @@ The ACE(t)-p model
 The ACE(t)-p model with the A and C variance components as functions with respect to age modelled by P-splines.
 }
 \usage{
-AtCtEp(data_m, data_d, knot_a = 8, knot_c = 8, eps = 0.1)
+AtCtEtp(data_m, data_d, knot_a = 8, knot_c = 8, knot_e = 8, eps = 0.1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,10 +20,14 @@ An \eqn{N_m} x 3 data matrix for MZ twins. \eqn{N_m} is the number of MZ twin pa
 An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
 }
   \item{knot_a}{
-The number of knots of the B-spline for the A component. The default value is 5.
+The number of knots of the B-spline for the A component. The default value is 8.
 }
   \item{knot_c}{
-The number of knots of the B-spline for the C component. The default value is 5.
+The number of knots of the B-spline for the C component. The default value is 8.
+}
+
+  \item{knot_e}{
+The number of knots of the B-spline for the E component. The default value is 8.
 }
   \item{eps}{
 Tolerance for convergence of the EM algorithm iterations. The default value is 0.1.
@@ -33,18 +37,18 @@ Tolerance for convergence of the EM algorithm iterations. The default value is 0
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
   
-  \item{var }{The estimated variance of the E component.}
   \item{var_b_a }{The estimated variance for the penalized coefficient for the A components.}
   \item{var_b_c }{The estimated variance for the penalized coefficient for the C components.}
-  \item{beta_c }{The estimated spline coefficients of the A component.}
-  \item{beta_a }{The estimated spline coefficients of the C component.}
+  \item{var_b_e }{The estimated variance for the penalized coefficient for the E components.}
+  \item{beta_a }{The estimated spline coefficients of the A component.}
+  \item{beta_c }{The estimated spline coefficients of the C component.}
+  \item{beta_e }{The estimated spline coefficients of the E component.}
   \item{con }{The indicator of convergence of the optimization algorithm.}
   \item{lik }{The minus log marginal likelihood.}
   \item{knot_a }{The values of the knots for the A component.}
   \item{knot_c }{The values of the knots for the C component.}
+  \item{knot_e }{The values of the knots for the E component.}
 %% ...
 }
 \references{
@@ -62,7 +66,7 @@ Liang He
 \examples{
 data(data_ace)
 
-result <- AtCtEp(data_ace$mz, data_ace$dz)
+result <- AtCtEtp(data_ace$mz, data_ace$dz)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -12,8 +12,8 @@ Novel twin models that are able to estimate the dynamic behaviour of the varianc
 \tabular{ll}{
 Package: \tab ACEt\cr
 Type: \tab Package\cr
-Version: \tab 1.2\cr
-Date: \tab 2016-01-11\cr
+Version: \tab 1.3\cr
+Date: \tab 2016-02-06\cr
 License: \tab GPL \cr
 }
 ~~ An overview of how to use the package, including the most important functions ~~
@@ -37,7 +37,7 @@ Maintainer: Liang He <liang.he@duke.edu>
 
 data(data_ace)
 
-AtCtE(data_ace$mz, data_ace$dz)
+AtCtEt(data_ace$mz, data_ace$dz, model=c('d','d','c'))
 AtCtEp(data_ace$mz, data_ace$dz)
 
 }

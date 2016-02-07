@@ -87,11 +87,13 @@ AtCtEp_model <- list(D_a = D_a, D_c = D_c, pheno_m = pheno_m, pheno_d = pheno_d,
 
 class(AtCtEp_model) <- 'AtCtEp_model'
 
-return(AtCtEp_model)
+print('Variance of the E component:')
+print(var)
+print('Estimates of beta_a:')
+print(beta_a)
+print('Estimates of beta_c')
+print(beta_c)
 
-}
+return(invisible(AtCtEp_model))
 
-print.AtCtEp_model = function(x, ...){
-  x = x["beta_a",'beta_c','lik','iter','var','var_b_a','var_b_c']
-  NextMethod()
 }

@@ -1,4 +1,4 @@
-plot_AtEtp <- function(AtEtp_mcmc, data_m, data_d)
+plot_AtEtp <- function(AtEtp_mcmc)
 {
 	if(class(AtEtp_mcmc)!='AtEtp_mc_model')
 	{
@@ -7,13 +7,13 @@ plot_AtEtp <- function(AtEtp_mcmc, data_m, data_d)
 	
 	model_cur <- AtEtp_mcmc
 
-	pheno_m <- c(t(data_m[,1:2]))
-	pheno_d <- c(t(data_d[,1:2]))
-	T_m <- rep(data_m[,3], each=2)
-	T_d <- rep(data_d[,3], each=2)
+	#pheno_m <- c(t(data_m[,1:2]))
+	#pheno_d <- c(t(data_d[,1:2]))
+	#T_m <- rep(data_m[,3], each=2)
+	#T_d <- rep(data_d[,3], each=2)
 
 	order <- 3
-	x <- seq(from=min(T_m, T_d), to=max(T_m, T_d), length.out=500)
+	x <- seq(from=model_cur$min_t, to=model_cur$max_t, length.out=500)
 	bb_e <- splineDesign(model_cur$knots_e, x = x, ord=order, outer.ok = TRUE)
 	points_e <- exp(bb_e%*%model_cur$beta_e_mc)
 	bb_a <- splineDesign(model_cur$knots_a, x = x, ord=order, outer.ok = TRUE)
