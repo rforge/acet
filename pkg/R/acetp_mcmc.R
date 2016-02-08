@@ -70,7 +70,7 @@ B_des_c_d <- splineDesign(AtCtEtp$knot_c, x=AtCtEtp$T_d, ord=order)
 B_des_e_m <- splineDesign(AtCtEtp$knot_e, x=AtCtEtp$T_m, ord=order)
 B_des_e_d <- splineDesign(AtCtEtp$knot_e, x=AtCtEtp$T_d, ord=order)
 
-result <- mcmc_epsp_AtCtEt(AtCtEtp$pheno_m, AtCtEtp$pheno_d, B_des_a_m, B_des_a_d, B_des_c_m, B_des_c_d, B_des_e_m, B_des_e_d, AtCtEtp$var_b_a, AtCtEtp$var_b_c, AtCtEtp$var_b_e, AtCtEtp$D_a, AtCtEtp$D_c, AtCtEtp$D_c, iter_num, burnin, sd)
+result <- mcmc_epsp_AtCtEt(AtCtEtp$pheno_m, AtCtEtp$pheno_d, B_des_a_m, B_des_a_d, B_des_c_m, B_des_c_d, B_des_e_m, B_des_e_d, AtCtEtp$var_b_a, AtCtEtp$var_b_c, AtCtEtp$var_b_e, AtCtEtp$D_a, AtCtEtp$D_c, AtCtEtp$D_e, iter_num, burnin, sd)
 
 AtCtEtp_mc_mod <- list(beta_a_mc=result$beta_a_mc, beta_c_mc=result$beta_c_mc, beta_e_mc=result$beta_e_mc, cov_a_mc = result$cov_a, cov_c_mc = result$cov_c, cov_e_mc = result$cov_e, knots_a=AtCtEtp$knot_a, knots_c=AtCtEtp$knot_c, knots_e=AtCtEtp$knot_e, min_t = min(AtCtEtp$T_m, AtCtEtp$T_d), max_t = max(AtCtEtp$T_m, AtCtEtp$T_d))
 
@@ -97,9 +97,9 @@ B_des_a_d <- splineDesign(model_cur$knot_a, x=model_cur$T_d, ord=order)
 B_des_e_m <- splineDesign(model_cur$knot_e, x=model_cur$T_m, ord=order)
 B_des_e_d <- splineDesign(model_cur$knot_e, x=model_cur$T_d, ord=order)
 
-result <- mcmc_epsp_AtEtp(model_cur$pheno_m, model_cur$pheno_d, B_des_a_m, B_des_a_d, B_des_e_m, B_des_e_d, model_cur$var_b_a, model_cur$var_b_e, model_cur$D_a, model_cur$D_e, iter_num, burnin, sd)
+result <- mcmc_epsp_AtEt(model_cur$pheno_m, model_cur$pheno_d, B_des_a_m, B_des_a_d, B_des_e_m, B_des_e_d, model_cur$var_b_a, model_cur$var_b_e, model_cur$D_a, model_cur$D_e, iter_num, burnin, sd)
 
-AtEtp_mc_mod <- list(beta_a_mc=result$beta_a_mc, beta_e_mc=result$beta_e_mc, cov_a_mc = result$cov_a, cov_e_mc = result$cov_e, knots_a=model_cur$knots_a, knots_e=model_cur$knots_e, min_t = min(AtEtp$T_m, AtEtp$T_d), max_t = max(AtEtp$T_m, AtEtp$T_d))
+AtEtp_mc_mod <- list(beta_a_mc=result$beta_a_mc, beta_e_mc=result$beta_e_mc, cov_a_mc = result$cov_a, cov_e_mc = result$cov_e, knots_a=model_cur$knot_a, knots_e=model_cur$knot_e, min_t = min(AtEtp$T_m, AtEtp$T_d), max_t = max(AtEtp$T_m, AtEtp$T_d))
 
 class(AtEtp_mc_mod) <- 'AtEtp_mc_model'
 

@@ -6,7 +6,7 @@
 Estimating age modification effect on genetic and environmental variance components in twin models
 }
 \description{
-Novel twin models that are able to estimate the dynamic behaviour of the variance components in the classical twin models with respect to age. 
+The package implements two novel twin models that are able to estimate dynamic behaviour of the variance components in the classical twin models with respect to age or other covariates such as calendar year. 
 }
 \details{
 \tabular{ll}{
@@ -16,7 +16,6 @@ Version: \tab 1.3\cr
 Date: \tab 2016-02-06\cr
 License: \tab GPL \cr
 }
-~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
 Liang He
@@ -25,13 +24,10 @@ Maintainer: Liang He <liang.he@duke.edu>
 
 }
 \references{
-~~ Literature or other references for background information ~~
+Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niemi, Estimating modifying effect of age on genetic and environmental variance components in twin models. Genetics, 2016
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
 

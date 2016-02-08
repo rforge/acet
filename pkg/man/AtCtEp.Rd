@@ -20,10 +20,10 @@ An \eqn{N_m} x 3 data matrix for MZ twins. \eqn{N_m} is the number of MZ twin pa
 An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
 }
   \item{knot_a}{
-The number of knots of the B-spline for the A component. The default value is 5.
+The number of knots for the A component. The default value is 8.
 }
   \item{knot_c}{
-The number of knots of the B-spline for the C component. The default value is 5.
+The number of knots for the C component. The default value is 8.
 }
   \item{eps}{
 Tolerance for convergence of the EM algorithm iterations. The default value is 0.1.
@@ -48,7 +48,7 @@ Tolerance for convergence of the EM algorithm iterations. The default value is 0
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niemi, Estimating modifying effect of age on genetic and environmental variance components in twin models. Genetics, 2016
 }
 \author{
 Liang He
@@ -56,9 +56,6 @@ Liang He
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 data(data_ace)
 

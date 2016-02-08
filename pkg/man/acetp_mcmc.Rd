@@ -19,10 +19,10 @@ An object of the AtCtEtp_model (or AtCtEp_model, AtEtp_model).
 The number of MCMC iteration.
 }
   \item{sd}{
-The standard error of the normal proposal distribution. The default value is 0.1.
+The standard error of the normal proposal distribution in the MCMC algorithm. The default value is 0.1.
 }
   \item{burnin}{
-The number of burn-in, which must be smaller than \eqn{iter_num}.
+The number of burn-in, which must be smaller than the number of iteration.
 }
 }
 \details{
@@ -47,9 +47,7 @@ Liang He
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+
 \examples{
 
 data(data_ace)

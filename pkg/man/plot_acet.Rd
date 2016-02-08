@@ -28,7 +28,7 @@ An object obtained from the B-splines or P-splines functions. For the P-splines 
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niemi, Estimating modifying effect of age on genetic and environmental variance components in twin models. Genetics, 2016
 }
 \author{
 Liang He
@@ -36,9 +36,6 @@ Liang He
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 
 data(data_ace)

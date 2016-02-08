@@ -73,12 +73,12 @@ var_b_a <- result$par[1]
 var_b_e <- result$par[2]
 lik <- result$value
 liks <- c(liks, result$value)
-#print(result)
+
 }
 
 min_i <- match(min(liks), liks)
 
-result <- optim(betas[min_i,], loglik_AtEt_epsp_g, gr_AtEt_epsp_g, pheno_m = matrix(pheno_m), pheno_d = matrix(pheno_d), B_des_a_m=B_des_a_m, B_des_a_d=B_des_a_d, B_des_e_m=B_des_e_m, B_des_e_d=B_des_e_d, var_b_a=vars[min_i,1], var_b_e=vars[min_i,2], D_a=D_a, D_e=D_e, lower = rep(-10,n_e+n_a), upper = rep(10,n_e+n_a), method = "L-BFGS-B")
+result <- optim(betas[min_i,], loglik_AtEt_epsp_g, gr_AtEt_epsp_g, pheno_m = pheno_m, pheno_d = pheno_d, B_des_a_m=B_des_a_m, B_des_a_d=B_des_a_d, B_des_e_m=B_des_e_m, B_des_e_d=B_des_e_d, var_b_a=vars[min_i,1], var_b_e=vars[min_i,2], D_a=D_a, D_e=D_e, lower = rep(-10,n_e+n_a), upper = rep(10,n_e+n_a), method = "L-BFGS-B")
 
 AtEtp_model <- list(D_a = D_a, D_e = D_e, pheno_m = pheno_m, pheno_d = pheno_d, T_m = T_m, T_d = T_d, knot_a=knots_a, knot_e=knots_e, beta_a=result$par[1:n_a], beta_e=result$par[(1+n_a):(n_e+n_a)], con=result$convergence, lik=result$value, iter=liks, var_b_a=vars[min_i,1], var_b_e=vars[min_i,2])
 

@@ -2,7 +2,7 @@ plot_AtEtp <- function(AtEtp_mcmc)
 {
 	if(class(AtEtp_mcmc)!='AtEtp_mc_model')
 	{
-		stop('The first parameter must be an object obtained from the AtEtp_mcmc function.')
+		stop('The first parameter must be an object obtained from the acetp_mcmc function.')
 	}
 	
 	model_cur <- AtEtp_mcmc

@@ -5,27 +5,29 @@
 The AE(t)-p model  
 }
 \description{
-The AE(t)-p model with the A and E variance components as functions with respect to age modelled by B-splines.
+The AE(t)-p model with the A and E variance components as functions with respect to age modelled by P-splines.
 }
 \usage{
-AtEtp(data_m, data_d, knot_a = 5, knot_e = 5, eps = 0.1)
+AtEtp(data_m, data_d, knot_a = 8, knot_e = 8, eps = 0.1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{data_m}{
-%%     ~~Describe \code{data_m} here~~
+An \eqn{N_m} x 3 data matrix for MZ twins. \eqn{N_m} is the number of MZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
+
 }
   \item{data_d}{
-%%     ~~Describe \code{data_d} here~~
+An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
+
 }
   \item{knot_a}{
-%%     ~~Describe \code{knot_a} here~~
+The number of knots for the A component. The default value is 8.
 }
   \item{knot_e}{
-%%     ~~Describe \code{knot_e} here~~
+The number of knots for the E component. The default value is 8.
 }
   \item{eps}{
-%%     ~~Describe \code{eps} here~~
+Tolerance for convergence of the EM algorithm iterations. The default value is 0.1.
 }
 }
 \details{
@@ -39,24 +41,18 @@ AtEtp(data_m, data_d, knot_a = 5, knot_e = 5, eps = 0.1)
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+Liang He, Mikko J. Sillanpää, Karri Silventoinen, Jaakko Kaprio, Janne Pitkäniemi, Estimating modifying effect of age on genetic and environmental variance components in twin models. Genetics, 2016
 }
 \author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
+Liang He
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(data_ace)
+
+result <- AtEtp(data_ace$mz, data_ace$dz)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

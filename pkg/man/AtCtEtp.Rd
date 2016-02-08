@@ -5,7 +5,7 @@
 The ACE(t)-p model 
 }
 \description{
-The ACE(t)-p model with the A and C variance components as functions with respect to age modelled by P-splines.
+The ACE(t)-p model with the A, C and E variance components as functions with respect to age modelled by P-splines.
 }
 \usage{
 AtCtEtp(data_m, data_d, knot_a = 8, knot_c = 8, knot_e = 8, eps = 0.1)
@@ -46,13 +46,13 @@ Tolerance for convergence of the EM algorithm iterations. The default value is 0
   \item{beta_e }{The estimated spline coefficients of the E component.}
   \item{con }{The indicator of convergence of the optimization algorithm.}
   \item{lik }{The minus log marginal likelihood.}
-  \item{knot_a }{The values of the knots for the A component.}
-  \item{knot_c }{The values of the knots for the C component.}
-  \item{knot_e }{The values of the knots for the E component.}
+  \item{knot_a }{A vector of the knot positions for the A component.}
+  \item{knot_c }{A vector of the knot positions for the C component.}
+  \item{knot_e }{A vector of the knot positions for the E component.}
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niemi, Estimating modifying effect of age on genetic and environmental variance components in twin models. Genetics, 2016
 }
 \author{
 Liang He
@@ -60,9 +60,7 @@ Liang He
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+
 \examples{
 data(data_ace)
 

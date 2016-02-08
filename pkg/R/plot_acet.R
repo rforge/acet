@@ -8,26 +8,22 @@ plot_acet <- function(acet)
 	if(class(acet)=='AtCtEt_model')
 	{
 		plot_AtCtEt(acet)
-		return
 	}
 	
 	
 	if(class(acet)=='AtCtEp_mc_model')
 	{
 		plot_AtCtEp(acet)
-		return
 	}
 
 	if(class(acet)=='AtCtEtp_mc_model')
 	{
 		plot_AtCtEtp(acet)
-		return
 	}
 
 	if(class(acet)=='AtEtp_mc_model')
 	{
 		plot_AtEtp(acet)
-		return
 	}
 
 }
