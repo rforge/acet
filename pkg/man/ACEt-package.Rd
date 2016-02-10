@@ -27,8 +27,7 @@ Maintainer: Liang He <liang.he@duke.edu>
 Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niemi, Estimating modifying effect of age on genetic and environmental variance components in twin models. Genetics, 2016
 }
 \keyword{ package }
-\seealso{
-}
+
 \examples{
 
 data(data_ace)

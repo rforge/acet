@@ -30,16 +30,19 @@ The number of knots for the E component. The default value is 8.
 Tolerance for convergence of the EM algorithm iterations. The default value is 0.1.
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+
+  \item{var_b_a }{The estimated variance for the penalized coefficient for the A components.}
+  \item{var_b_e }{The estimated variance for the penalized coefficient for the E components.}
+  \item{beta_e }{The estimated spline coefficients of the E component.}
+  \item{beta_a }{The estimated spline coefficients of the C component.}
+  \item{con }{The indicator of convergence of the optimization algorithm.}
+  \item{lik }{The minus log marginal likelihood.}
+  \item{knot_a }{The values of the knots for the A component.}
+  \item{knot_e }{The values of the knots for the E component.}
 }
+
 \references{
 Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niemi, Estimating modifying effect of age on genetic and environmental variance components in twin models. Genetics, 2016
 }
