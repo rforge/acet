@@ -17,16 +17,8 @@ An object obtained from the B-splines or P-splines functions. For the P-splines 
 }
   
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
+
+
 \references{
 Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niemi, Estimating modifying effect of age on genetic and environmental variance components in twin models. Genetics, 2016
 }
@@ -39,11 +31,12 @@ Liang He
 \examples{
 
 data(data_ace)
-result <- AtCtEp(data_ace$mz, data_ace$dz)
-result_mc <- acetp_mcmc(result, iter_num=5000)
+result <- AtCtEp(data_ace$mz[1:1500,], data_ace$dz[1:1500,], knot_a = 5, knot_c = 4)
+result_mc <- acetp_mcmc(result, iter_num=1000, burnin = 500)
 plot_acet(result_mc)
 
-result <- AtCtEt(data_ace$mz, data_ace$dz, model=c('d','d','c'))
+result <- AtCtEt(data_ace$mz[1:1500,], data_ace$dz[1:1500,], model=c('d','c','c'), 
+knot_a = 5)
 plot_acet(result)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

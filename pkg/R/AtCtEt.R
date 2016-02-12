@@ -23,6 +23,10 @@ order <- 3
 if(model[1]=='d')
 {
 order <- 3
+
+if(knot_a < 3)
+{stop('The number of interior knots must be no less than 3.')}
+
 }else
 {
 order <- 1
@@ -45,6 +49,10 @@ B_des_a_d <- splineDesign(knots_a, x=T_d, ord=order)
 if(model[2]=='d')
 {
 order <- 3
+
+if(knot_c < 3)
+{stop('The number of interior knots must be no less than 3.')}
+
 }else
 {
 order <- 1
@@ -66,6 +74,10 @@ B_des_c_d <- splineDesign(knots_c, x=T_d, ord=order)
 if(model[3]=='d')
 {
 order <- 3
+
+if(knot_e < 3)
+{stop('The number of interior knots must be no less than 3.')}
+
 }else
 {
 order <- 1

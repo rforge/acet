@@ -29,9 +29,7 @@ The number of knots for the C component. The default value is 8.
 Tolerance for convergence of the EM algorithm iterations. The default value is 0.1.
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
@@ -59,7 +57,7 @@ Liang He
 \examples{
 data(data_ace)
 
-result <- AtCtEp(data_ace$mz, data_ace$dz)
+result <- AtCtEp(data_ace$mz[1:1500,], data_ace$dz[1:1500,], knot_a = 5, knot_c = 4)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

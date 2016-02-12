@@ -3,7 +3,7 @@
 \alias{ACEt}
 \docType{package}
 \title{
-Estimating age modification effect on genetic and environmental variance components in twin models
+Estimating Age Modification Effect on Genetic and Environmental Variance Components in Twin Models
 }
 \description{
 The package implements two novel twin models that are able to estimate dynamic behaviour of the variance components in the classical twin models with respect to age or other covariates such as calendar year. 
@@ -32,7 +32,7 @@ Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niem
 
 data(data_ace)
 
-AtCtEt(data_ace$mz, data_ace$dz, model=c('d','d','c'))
-AtCtEp(data_ace$mz, data_ace$dz)
+AtCtEt(data_ace$mz[1:1500,], data_ace$dz[1:1500,], model=c('d','d','c'), knot_a = 5, knot_c = 4)
+AtCtEp(data_ace$mz[1:1500,], data_ace$dz[1:1500,], knot_a = 5, knot_c = 4)
 
 }

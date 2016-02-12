@@ -55,7 +55,7 @@ Liang He
 \examples{
 data(data_ace)
 
-result <- AtEtp(data_ace$mz, data_ace$dz)
+result <- AtEtp(data_ace$mz[1:2000,], data_ace$dz[1:2000,])
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -32,9 +32,7 @@ The number of knots of the B-spline for the C component. The default value is 5.
 The number of knots of the B-spline for the E component. The default value is 5.
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use

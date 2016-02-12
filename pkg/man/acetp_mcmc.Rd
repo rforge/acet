@@ -25,9 +25,7 @@ The standard error of the normal proposal distribution in the MCMC algorithm. Th
 The number of burn-in, which must be smaller than the number of iteration.
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
 
   \item{beta_a_mc }{The estimates of the spline coefficients for the A component based on the posterior mean from the MCMC method.}
@@ -39,7 +37,7 @@ The number of burn-in, which must be smaller than the number of iteration.
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niemi, Estimating modifying effect of age on genetic and environmental variance components in twin models. Genetics, 2016
 }
 \author{
 Liang He
@@ -52,8 +50,8 @@ Liang He
 
 data(data_ace)
 
-result <- AtCtEp(data_ace$mz, data_ace$dz)
-result_mc <- acetp_mcmc(result, iter_num=5000)
+result <- AtCtEp(data_ace$mz[1:1500,], data_ace$dz[1:1500,], knot_a = 5, knot_c = 4)
+result_mc <- acetp_mcmc(result, iter_num=1000, burnin = 500)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

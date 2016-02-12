@@ -5,6 +5,13 @@ acetp_mcmc <- function(acetp, iter_num = 10000, sd = 0.1, burnin =1000)
 		stop('The first parameter must be an acet object.')
 	}
 
+	
+	if(burnin >= iter_num)
+	{
+		stop('The number of burnins must be smaller than the number of MCMC iterations.')
+	}
+
+
 	if(class(acetp)=='AtCtEp_model')
 	{
 		res <- AtCtEp_mcmc(acetp, iter_num, sd, burnin)
