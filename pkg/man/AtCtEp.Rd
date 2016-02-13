@@ -55,9 +55,9 @@ Liang He
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \examples{
-data(data_ace)
+# data(data_ace)
 
-result <- AtCtEp(data_ace$mz[1:1000,], data_ace$dz[1:1000,], knot_a = 5, knot_c = 4)
+# result <- AtCtEp(data_ace$mz, data_ace$dz, knot_a = 8, knot_c = 8)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

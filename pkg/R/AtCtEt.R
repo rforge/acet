@@ -107,7 +107,7 @@ init_c <- 0
 init_e <- 0
 
 up_a <- up_c <- up_e <- 5
-lo_a <- lo_c <- lo_e <- -5
+lo_a <- lo_c <- lo_e <- -1000
 
 if(model[1]=='n')
 {

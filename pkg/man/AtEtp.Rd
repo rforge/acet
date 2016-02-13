@@ -35,8 +35,8 @@ Tolerance for convergence of the EM algorithm iterations. The default value is 0
 
   \item{var_b_a }{The estimated variance for the penalized coefficient for the A components.}
   \item{var_b_e }{The estimated variance for the penalized coefficient for the E components.}
+  \item{beta_a }{The estimated spline coefficients of the A component.}
   \item{beta_e }{The estimated spline coefficients of the E component.}
-  \item{beta_a }{The estimated spline coefficients of the C component.}
   \item{con }{The indicator of convergence of the optimization algorithm.}
   \item{lik }{The minus log marginal likelihood.}
   \item{knot_a }{The values of the knots for the A component.}

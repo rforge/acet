@@ -48,10 +48,10 @@ Liang He
 
 \examples{
 
-data(data_ace)
+# data(data_ace)
 
-result <- AtCtEp(data_ace$mz[1:1500,], data_ace$dz[1:1500,], knot_a = 5, knot_c = 4)
-result_mc <- acetp_mcmc(result, iter_num=1000, burnin = 500)
+# result <- AtCtEp(data_ace$mz, data_ace$dz, knot_a = 7, knot_c = 7)
+# result_mc <- acetp_mcmc(result, iter_num=10000, burnin = 500)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

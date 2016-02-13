@@ -30,14 +30,13 @@ Liang He
 
 \examples{
 
-data(data_ace)
-result <- AtCtEp(data_ace$mz[1:1000,], data_ace$dz[1:1000,], knot_a = 5, knot_c = 4)
-result_mc <- acetp_mcmc(result, iter_num=1000, burnin = 500)
-plot_acet(result_mc)
+# data(data_ace)
+# result <- AtCtEp(data_ace$mz, data_ace$dz, knot_a = 5, knot_c = 4)
+# result_mc <- acetp_mcmc(result, iter_num=10000, burnin = 500)
+# plot_acet(result_mc)
 
-result <- AtCtEt(data_ace$mz[1:1000,], data_ace$dz[1:1000,], model=c('d','c','c'), 
-knot_a = 5)
-plot_acet(result)
+# result <- AtCtEt(data_ace$mz, data_ace$dz, model=c('d','c','c'), knot_a = 5)
+# plot_acet(result)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

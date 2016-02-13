@@ -60,9 +60,9 @@ Liang He
 
 
 \examples{
-data(data_ace)
+# data(data_ace)
 
-result <- AtCtEtp(data_ace$mz[1:2000,], data_ace$dz[1:2000,], knot_e = 3, knot_a = 5, knot_c = 5)
+# result <- AtCtEtp(data_ace$mz, data_ace$dz, knot_e = 7, knot_a = 5, knot_c = 5)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
