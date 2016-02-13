@@ -32,7 +32,7 @@ Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niem
 
 data(data_ace)
 
-AtCtEt(data_ace$mz[1:1500,], data_ace$dz[1:1500,], model=c('d','d','c'), knot_a = 5, knot_c = 4)
-AtCtEp(data_ace$mz[1:1500,], data_ace$dz[1:1500,], knot_a = 5, knot_c = 4)
+AtCtEt(data_ace$mz[1:1000,], data_ace$dz[1:1000,], model=c('d','d','c'), knot_a = 5, knot_c = 4)
+AtCtEp(data_ace$mz[1:1000,], data_ace$dz[1:1000,], knot_a = 5, knot_c = 4)
 
 }

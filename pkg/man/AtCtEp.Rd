@@ -20,10 +20,10 @@ An \eqn{N_m} x 3 data matrix for MZ twins. \eqn{N_m} is the number of MZ twin pa
 An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
 }
   \item{knot_a}{
-The number of knots for the A component. The default value is 8.
+The number of interior knots for the A component. The default value is 8.
 }
   \item{knot_c}{
-The number of knots for the C component. The default value is 8.
+The number of interior knots for the C component. The default value is 8.
 }
   \item{eps}{
 Tolerance for convergence of the EM algorithm iterations. The default value is 0.1.
@@ -57,7 +57,7 @@ Liang He
 \examples{
 data(data_ace)
 
-result <- AtCtEp(data_ace$mz[1:1500,], data_ace$dz[1:1500,], knot_a = 5, knot_c = 4)
+result <- AtCtEp(data_ace$mz[1:1000,], data_ace$dz[1:1000,], knot_a = 5, knot_c = 4)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

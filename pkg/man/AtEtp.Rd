@@ -21,10 +21,10 @@ An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pa
 
 }
   \item{knot_a}{
-The number of knots for the A component. The default value is 8.
+The number of interior knots for the A component. The default value is 8.
 }
   \item{knot_e}{
-The number of knots for the E component. The default value is 8.
+The number of interior knots for the E component. The default value is 8.
 }
   \item{eps}{
 Tolerance for convergence of the EM algorithm iterations. The default value is 0.1.

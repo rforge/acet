@@ -9,6 +9,6 @@ Description: Two novel twin models that are able to estimate the dynamic behavio
 License: GPL (>=2)
 Depends: splines
 Imports:
-    Rcpp (>= 0.11.1),
+    Rcpp (>= 0.11.1), splines
 Encoding: latin1
 LinkingTo: BH, RcppArmadillo, Rcpp

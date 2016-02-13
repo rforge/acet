@@ -22,14 +22,14 @@ An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pa
   A character vector of length 3. Each element specifies the function for the A, C or E component respectively. The A and C components can be 'd'(dynamic), 'c'(constant) or 'n'(NA). The E component can only be 'd' or 'c'. Thus, \eqn{model=c('c','c','c')} is corresponding to the classical ACE model.
   }
   \item{knot_a}{
-The number of knots of the B-spline for the A component. The default value is 5.
+The number of interior knots of the B-spline for the A component, which must be no less than 3. The default value is 5. 
 }
 
   \item{knot_c}{
-The number of knots of the B-spline for the C component. The default value is 5.
+The number of interior knots of the B-spline for the C component, which must be no less than 3. The default value is 5.
 }
   \item{knot_e}{
-The number of knots of the B-spline for the E component. The default value is 5.
+The number of interior knots of the B-spline for the E component, which must be no less than 3. The default value is 5.
 }
 }
 

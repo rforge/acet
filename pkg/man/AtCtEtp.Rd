@@ -20,14 +20,14 @@ An \eqn{N_m} x 3 data matrix for MZ twins. \eqn{N_m} is the number of MZ twin pa
 An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
 }
   \item{knot_a}{
-The number of knots of the B-spline for the A component. The default value is 8.
+The number of interior knots of the B-spline for the A component. The default value is 8.
 }
   \item{knot_c}{
-The number of knots of the B-spline for the C component. The default value is 8.
+The number of interior knots of the B-spline for the C component. The default value is 8.
 }
 
   \item{knot_e}{
-The number of knots of the B-spline for the E component. The default value is 8.
+The number of interior knots of the B-spline for the E component. The default value is 8.
 }
   \item{eps}{
 Tolerance for convergence of the EM algorithm iterations. The default value is 0.1.
