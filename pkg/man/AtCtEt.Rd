@@ -39,9 +39,9 @@ The number of interior knots of the B-spline for the E component, which must be 
   \item{n_beta_a }{The number of spline coefficients for the A component.}
   \item{n_beta_c }{The number of spline coefficients for the C component.}
   \item{n_beta_e }{The number of spline coefficients for the E component.}
-  \item{beta_a }{The estimated spline coefficients of the A component.}
-  \item{beta_c }{The estimated spline coefficients of the C component.}
-  \item{beta_e }{The estimated spline coefficients of the E component.}
+  \item{beta_a }{The estimated spline coefficients (if the model parameter is 'd') or variance (if the model parameter is 'c') of the A component.}
+  \item{beta_c }{The estimated spline coefficients (if the model parameter is 'd') or variance (if the model parameter is 'c') of the C component.}
+  \item{beta_e }{The estimated spline coefficients (if the model parameter is 'd') or variance (if the model parameter is 'c') of the E component.}
   \item{hessian }{The approximated Hessian matrix from the minus log-likelihood.}
   \item{con }{The indicator of convergence of the optimization algorithm.}
   \item{lik }{The minus log-likelihood.}
