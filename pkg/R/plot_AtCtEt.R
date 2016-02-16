@@ -1,8 +1,16 @@
-plot_AtCtEt <- function(AtCtEt)
+plot_AtCtEt <- function(AtCtEt, boot=FALSE)
 {
 	if(class(AtCtEt)!='AtCtEt_model')
 	{
 		stop('The first parameter must be an object obtained from the AtCtEt function.')
+	}
+
+	if(boot==TRUE)
+	{
+		if(is.null(AtCtEt$boot)==TRUE)
+		{
+		stop('Please first run the AtCtEt model with bootstrapping.')
+		}
 	}
 	
 	model_cur <- AtCtEt
@@ -63,6 +71,23 @@ plot_AtCtEt <- function(AtCtEt)
 	index <- 1
 	# bb <- splineDesign(model_cur$knots_a, x = x, ord=order, outer.ok = TRUE)
 	lines(x, points_a, col = "red", lwd = 2)
+	lines(x, points_c, col = "blue", lwd = 2)
+	lines(x, points_e, col = "pink", lwd = 2)
+
+	if(boot == TRUE)
+	{
+		lines(AtCtEt$boot$x, AtCtEt$boot$lower.ci_a, col = "orange" ,lty = 2 , lwd = 0.6)
+		lines(AtCtEt$boot$x, AtCtEt$boot$upper.ci_a, col = "orange" ,lty = 2 , lwd = 0.6)
+		polygon(c(AtCtEt$boot$x, rev(AtCtEt$boot$x)),c(AtCtEt$boot$upper.ci_a, rev(AtCtEt$boot$lower.ci_a)),col='grey',border = NA, lty=3, density=20)
+		lines(AtCtEt$boot$x, AtCtEt$boot$lower.ci_c, col = "green" ,lty = 2 , lwd = 0.6)
+		lines(AtCtEt$boot$x, AtCtEt$boot$upper.ci_c, col = "green" ,lty = 2 , lwd = 0.6)
+		polygon(c(AtCtEt$boot$x, rev(AtCtEt$boot$x)),c(AtCtEt$boot$upper.ci_c, rev(AtCtEt$boot$lower.ci_c)),col='grey',border = NA, lty=3, density=20)
+		lines(AtCtEt$boot$x, AtCtEt$boot$lower.ci_e, col = "yellow" ,lty = 2 , lwd = 0.6)
+		lines(AtCtEt$boot$x, AtCtEt$boot$upper.ci_e, col = "yellow" ,lty = 2 , lwd = 0.6)
+		polygon(c(AtCtEt$boot$x, rev(AtCtEt$boot$x)),c(AtCtEt$boot$upper.ci_e, rev(AtCtEt$boot$lower.ci_e)),col='grey',border = NA, lty=3, density=20)
+	
+	}else{
+	
 	if((l_a>1)|(model_cur$beta_a[1]!=0))
 	{
 	
@@ -94,12 +119,12 @@ plot_AtCtEt <- function(AtCtEt)
 	lines(x, lower, col = "orange" ,lty = 2 , lwd = 0.6)
 	lines(x, upper, col = "orange" ,lty = 2 , lwd = 0.6)
 	polygon(c(x, rev(x)),c(upper, rev(lower)),col='grey',border = NA, lty=3, density=20)
-	}else{print('The variance of one of the estimates for the A component is negative. It is possible that a wrong model is specified.')}
+	}else{warning('The variance of one of the estimates from the Delta method for the A component is negative. Please try the bootstrap method for the confidence interval or use a different model.')}
 	}
 
 	index <- index + l_a
 	
-	lines(x, points_c, col = "blue", lwd = 2)
+	
 	if((l_c>1)|(model_cur$beta_c[1]!=0))
 	{
 	fisher_c <- fisher[index:(index+l_c-1),index:(index+l_c-1)]
@@ -130,13 +155,11 @@ plot_AtCtEt <- function(AtCtEt)
 	lines(x, lower, col = "green" ,lty = 2 , lwd = 0.6)
 	lines(x, upper, col = "green" ,lty = 2 , lwd = 0.6)
 	polygon(c(x, rev(x)),c(upper, rev(lower)),col='grey',border = NA, lty=3, density=20)
-	}else{print('The variance of one of the estimates for the C component is negative. It is possible that a wrong model is specified.')}
+	}else{warning('The variance of one of the estimates from the Delta method for the C component is negative. Please try the bootstrap method for the confidence interval or use a different model.')}
 
 	}
 
 	index <- index + l_c
-	
-	lines(x, points_e, col = "pink", lwd = 2)
 	
 	fisher_e <- fisher[index:(index+l_e-1),index:(index+l_e-1)]
 	lower <- rep(NA, length(x))
@@ -159,7 +182,9 @@ plot_AtCtEt <- function(AtCtEt)
 	lines(x, lower, col = "yellow" ,lty = 2 , lwd = 0.6)
 	lines(x, upper, col = "yellow" ,lty = 2 , lwd = 0.6)
 	polygon(c(x, rev(x)),c(upper, rev(lower)),col='grey',border = NA, lty=3, density=20)
-
+	
+	} # boot == FALSE
+	
 	legend(x[1], max_v, c('Additive genetic component','Common environmental component', 'Unique environmental component'), col = c('red','blue','pink'), lty=c(1,1,1), lwd=c(2,2,2))
 
 }

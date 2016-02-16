@@ -13,11 +13,11 @@ AtCtEp(data_m, data_d, knot_a = 8, knot_c = 8, eps = 0.1)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{data_m}{
-An \eqn{N_m} x 3 data matrix for MZ twins. \eqn{N_m} is the number of MZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
+An \eqn{N_m} x 3 data matrix for MZ twins. \eqn{N_m} is the number of MZ twin pairs. The first two columns are centered trait values (i.e. the mean should be zero) and the third column is age (or other covariates). 
 
 }
   \item{data_d}{
-An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pairs. The first two columns are traits and the third column is age (or other covariates). 
+An \eqn{N_d} x 3 data matrix for DZ twins. \eqn{N_d} is the number of DZ twin pairs. The first two columns are centered trait values (i.e. the mean should be zero) and the third column is age (or other covariates). 
 }
   \item{knot_a}{
 The number of interior knots for the A component. The default value is 8.
