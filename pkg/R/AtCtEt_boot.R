@@ -1,4 +1,4 @@
-AtCtEt_boot <- function(res = AtCtEt_model, model, data_m, data_d, knot_a, knot_c, knot_e, B=100,alpha=0.05,m=500)
+AtCtEt_boot <- function(res, model, data_m, data_d, knot_a, knot_c, knot_e, B=100,alpha=0.05,m=500)
 {
 spline.main <- sp.spline.estimator(data_m, data_d, model, knot_a, knot_c, knot_e, m)
 spline.boots_a <- matrix(NA,m,B)

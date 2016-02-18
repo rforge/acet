@@ -8,7 +8,8 @@ The ACE(t) model
 The ACE(t) model with the A, C and E variance components as functions with respect to age modelled by B-splines.
 }
 \usage{
-AtCtEt(data_m, data_d, model = c('d','d','d'), knot_a = 5, knot_c = 5, knot_e = 5, boot=FALSE, num_b = 100)
+AtCtEt(data_m, data_d, model = c('d','d','d'), knot_a = 5, knot_c = 5, knot_e = 5, 
+boot=FALSE, num_b = 100)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -51,7 +52,7 @@ The number of replicates when the bootstrap method is used (i.e. \eqn{boot=TRUE}
   \item{beta_c }{The estimated spline coefficients (if the model parameter is 'd') or variance (if the model parameter is 'c') of the C component.}
   \item{beta_e }{The estimated spline coefficients (if the model parameter is 'd') or variance (if the model parameter is 'c') of the E component.}
   \item{hessian }{The approximated Hessian matrix from the minus log-likelihood.}
-  \item{con }{The indicator of convergence of the optimization algorithm.}
+  \item{con }{An indicator of convergence of the optimization algorithm. An integer code 0 indicates successful completion. See 'optim' for more details.}
   \item{lik }{The minus log-likelihood.}
   \item{knots_a }{A vector of the knot positions for the A component.}
   \item{knots_c }{A vector of the knot positions for the C component.}
@@ -60,7 +61,7 @@ The number of replicates when the bootstrap method is used (i.e. \eqn{boot=TRUE}
 %% ...
 }
 \references{
-Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niemi, Estimating modifying effect of age on genetic and environmental variance components in twin models. Genetics, 2016
+He, L., Sillanp‰‰, M. J., Silventoinen, K., Kaprio, J., & Pitk‰niemi, J. (2016). Estimating Modifying Effect of Age on Genetic and Environmental Variance Components in Twin Models. Genetics, genetics-115.
 }
 \author{
 Liang He

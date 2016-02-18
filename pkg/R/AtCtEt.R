@@ -143,7 +143,7 @@ lo_e <- 0.000001
 init_e <- 1
 }
 
-result <- optim(c(rep(init_a, n_a),rep(init_c, n_c),rep(init_e, n_e)), loglik_AtCtEt_esp, gr_AtCtEt_esp, pheno_m = matrix(pheno_m), pheno_d = matrix(pheno_d), B_des_a_m = B_des_a_m, B_des_a_d = B_des_a_d, B_des_c_m = B_des_c_m, B_des_c_d = B_des_c_d, B_des_e_m = B_des_e_m, B_des_e_d = B_des_e_d,lower = c(rep(lo_a, n_a),rep(lo_c, n_c),rep(lo_e, n_e)), upper = c(rep(up_a, n_a),rep(up_c, n_c),rep(up_e, n_e)), method = "L-BFGS-B", hessian = TRUE)
+result <- optim(c(rep(init_a, n_a),rep(init_c, n_c),rep(init_e, n_e)), loglik_AtCtEt_esp, gr_AtCtEt_esp, pheno_m = matrix(pheno_m), pheno_d = matrix(pheno_d), B_des_a_m = B_des_a_m, B_des_a_d = B_des_a_d, B_des_c_m = B_des_c_m, B_des_c_d = B_des_c_d, B_des_e_m = B_des_e_m, B_des_e_d = B_des_e_d,lower = c(rep(lo_a, n_a),rep(lo_c, n_c),rep(lo_e, n_e)), upper = c(rep(up_a, n_a),rep(up_c, n_c),rep(up_e, n_e)), method = "L-BFGS-B", hessian = TRUE, control=list(maxit = 3000))
 
 res_a <- result$par[1:n_a]
 res_c <- result$par[(1+n_a):(n_c+n_a)]

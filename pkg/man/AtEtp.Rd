@@ -37,14 +37,14 @@ Tolerance for convergence of the EM algorithm iterations. The default value is 0
   \item{var_b_e }{The estimated variance for the penalized coefficient for the E components.}
   \item{beta_a }{The estimated spline coefficients of the A component.}
   \item{beta_e }{The estimated spline coefficients of the E component.}
-  \item{con }{The indicator of convergence of the optimization algorithm.}
+  \item{con }{An indicator of convergence of the optimization algorithm. An integer code 0 indicates successful completion. See 'optim' for more details.}
   \item{lik }{The minus log marginal likelihood.}
   \item{knot_a }{The values of the knots for the A component.}
   \item{knot_e }{The values of the knots for the E component.}
 }
 
 \references{
-Liang He, Mikko J. Sillanp‰‰, Karri Silventoinen, Jaakko Kaprio, Janne Pitk‰niemi, Estimating modifying effect of age on genetic and environmental variance components in twin models. Genetics, 2016
+He, L., Sillanp‰‰, M. J., Silventoinen, K., Kaprio, J., & Pitk‰niemi, J. (2016). Estimating Modifying Effect of Age on Genetic and Environmental Variance Components in Twin Models. Genetics, genetics-115.
 }
 \author{
 Liang He
