@@ -1,8 +1,6 @@
 useDynLib(ACEt)
 export(acetp_mcmc)
-export(AtCtEp)
 export(AtCtEtp)
-export(AtEtp)
 export(AtCtEt)
 export(plot_acet)
 importFrom(Rcpp, sourceCpp)
