@@ -74,7 +74,7 @@ Liang He
 \examples{
 # data(data_ace)
 
-# result <- AtCtEtp(data_ace$mz, data_ace$dz, knot_e = 7, knot_a = 5, knot_c = 5, mod=c('d','d','d'))
+# result <- AtCtEtp(data_ace$mz, data_ace$dz, knot_e = 7, knot_c = 5, mod=c('d','d','d'))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

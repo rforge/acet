@@ -9,7 +9,7 @@ The ACE(t) model with the A, C and E variance components as functions with respe
 }
 \usage{
 AtCtEt(data_m, data_d, mod = c('d','d','d'), knot_a = 5, knot_c = 5, knot_e = 5, 
-boot=FALSE, num_b = 100)
+boot=FALSE, num_b = 100, init = rep(0,3))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -1,11 +1,11 @@
 plot_AtCtEt_h <- function(AtCtEt, boot=FALSE)
 {
-	if(class(AtCtEt)!='AtCtEt_model')
+	if((class(AtCtEt)!='AtCtEt_model')&(class(AtCtEt)!='AtCtEtp_mc_model'))
 	{
-		stop('The first parameter must be an object obtained from the AtCtEt function.')
+		stop('The first parameter must be an object obtained from the AtCtEt or acetp_mcmc function.')
 	}
 
-	if(boot==TRUE)
+	if((boot==TRUE)&(class(AtCtEt)=='AtCtEt_model'))
 	{
 		if(is.null(AtCtEt$boot)==TRUE)
 		{
@@ -13,6 +13,8 @@ plot_AtCtEt_h <- function(AtCtEt, boot=FALSE)
 		}
 	}
 	
+	if(class(AtCtEt)=='AtCtEt_model')
+	{
 	model_cur <- AtCtEt
 
 	l_a <- model_cur$n_beta_a
@@ -112,5 +114,8 @@ plot_AtCtEt_h <- function(AtCtEt, boot=FALSE)
 	} # boot == FALSE
 	
 	# legend(x[1], max_v, c('Additive genetic component','Common environmental component', 'Unique environmental component'), col = c('red','blue','pink'), lty=c(1,1,1), lwd=c(2,2,2))
-
+	}else
+	{
+		
+	}
 }
