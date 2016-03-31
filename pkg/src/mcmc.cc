@@ -2,7 +2,7 @@
 
 
 typedef boost::minstd_rand base_generator_type;
-
+/*
 void ci_mh(double *result,int * num_p_mz, int * num_p_dz, int * num_col_a, int * num_col_c, double *ph_m, double *ph_d, 
 	double *B_des_a_m, double *B_des_a_d, double *B_des_c_m, double *B_des_c_d, double *G_a, double *G_c,
 	double *var, double *var_b_a, double *var_b_c, int *D_a, int *D_c, int *iter_n, int *burn, double *sd_mcmc)
@@ -545,6 +545,8 @@ void ci_mh(double *result,int * num_p_mz, int * num_p_dz, int * num_col_a, int *
 	}
 	
 }
+*/
+
 
 void ci_mh_atctet(double *result,int * num_p_mz, int * num_p_dz, 
 				  int * num_col_a, int * num_col_c, int * num_col_e, 
@@ -914,122 +916,194 @@ void ci_mh_atctet(double *result,int * num_p_mz, int * num_p_dz,
 
 	for(int iter = 1; iter < ITER_NUM; iter++)
 	{
+		double step = 0;
 		Vec a_n(COL_A);
-		double step = VAR_A;
-		if(step>0.05)
-		{step = (*sd_mcmc);}
-		
-		if((penal_a==2)&&(VAR_A>0))
+		Vec tr_a(COL_A);
+		if(COL_A>2)
 		{
-			for(int i = 0; i < (COL_A-penal_a); i++)
+			step = VAR_A;
+			if(step>0.05)
+			{step = (*sd_mcmc);}
+		
+			if((penal_a==2)&&(VAR_A>0))
 			{
-				gen_type2 die_gen_a(generator, distribution_type2(a_t[i],step));
+				for(int i = 0; i < (COL_A-penal_a); i++)
+				{
+					gen_type2 die_gen_a(generator, distribution_type2(a_t[i],step));
+					boost::generator_iterator<gen_type2> die_a(&die_gen_a);
+					a_n[i] = *die_a++;
+				}
+			}
+			else
+			{
+				for(int i = 0; i < (COL_A-penal_a); i++)
+				{	
+					a_n[i] = 0;
+				}
+			}
+
+			for(int i = (COL_A-penal_a); i < COL_A; i++)
+			{
+				gen_type2 die_gen_a(generator, distribution_type2(a_t[i],(*sd_mcmc)));
 				boost::generator_iterator<gen_type2> die_a(&die_gen_a);
 				a_n[i] = *die_a++;
 			}
+
+			for(int i = 0; i < COL_A; i++)
+			{
+				double prod_a_t = 0;
+				for(int j = 0; j < COL_A; j++)
+				{
+					prod_a_t += g_a[i][j]*a_n[j];
+				}
+				tr_a[i] = prod_a_t;
+			}
 		}
 		else
 		{
-			for(int i = 0; i < (COL_A-penal_a); i++)
-			{	
-				a_n[i] = 0;
-			}
-		}
-
-		for(int i = (COL_A-penal_a); i < COL_A; i++)
-		{
-			gen_type2 die_gen_a(generator, distribution_type2(a_t[i],(*sd_mcmc)));
-			boost::generator_iterator<gen_type2> die_a(&die_gen_a);
-			a_n[i] = *die_a++;
-		}
-
-		Vec tr_a(COL_A);
-		for(int i = 0; i < COL_A; i++)
-		{
-			double prod_a_t = 0;
-			for(int j = 0; j < COL_A; j++)
+			if(COL_A==2)
 			{
-				prod_a_t += g_a[i][j]*a_n[j];
+				for(int i = 0; i < 2; i++)
+				{
+					gen_type2 die_gen_a(generator, distribution_type2(a_t[i],(*sd_mcmc)));
+					boost::generator_iterator<gen_type2> die_a(&die_gen_a);
+					a_n[i] = *die_a++;
+					tr_a[i] = a_n[i];
+				}
 			}
-			tr_a[i] = prod_a_t;
+			else
+			{
+				gen_type2 die_gen_a(generator, distribution_type2(a_t[0],(*sd_mcmc)));
+				boost::generator_iterator<gen_type2> die_a(&die_gen_a);
+				a_n[0] = *die_a++;
+				tr_a[0] = a_n[0];
+			}
 		}
-		
-		step = VAR_C;
-		if(step>0.05)
-		{step = (*sd_mcmc);}
 
 		Vec c_n(COL_C);
-		if((penal_c==2)&&(VAR_C>0))
+		Vec tr_c(COL_C);
+		if(COL_C>2)
 		{
-			for(int i = 0; i < (COL_C-penal_c); i++)
+			step = VAR_C;
+			if(step>0.05)
+			{step = (*sd_mcmc);}
+
+			if((penal_c==2)&&(VAR_C>0))
 			{
-				gen_type2 die_gen_c(generator, distribution_type2(c_t[i],step));
+				for(int i = 0; i < (COL_C-penal_c); i++)
+				{
+					gen_type2 die_gen_c(generator, distribution_type2(c_t[i],step));
+					boost::generator_iterator<gen_type2> die_c(&die_gen_c);
+					c_n[i] = *die_c++;
+				}
+			}
+			else
+			{
+				for(int i = 0; i < (COL_C-penal_c); i++)
+				{	
+					c_n[i] = 0;
+				}
+			}
+			for(int i = (COL_C-penal_c); i < COL_C; i++)
+			{
+				gen_type2 die_gen_c(generator, distribution_type2(c_t[i],(*sd_mcmc)));
 				boost::generator_iterator<gen_type2> die_c(&die_gen_c);
 				c_n[i] = *die_c++;
 			}
+
+			for(int i = 0; i < COL_C; i++)
+			{
+				double prod_c_t = 0;
+				for(int j = 0; j < COL_C; j++)
+				{
+					prod_c_t += g_c[i][j]*c_n[j];
+				}
+				tr_c[i] = prod_c_t;
+			}
 		}
 		else
 		{
-			for(int i = 0; i < (COL_C-penal_c); i++)
-			{	
-				c_n[i] = 0;
-			}
-		}
-		for(int i = (COL_C-penal_c); i < COL_C; i++)
-		{
-			gen_type2 die_gen_c(generator, distribution_type2(c_t[i],(*sd_mcmc)));
-			boost::generator_iterator<gen_type2> die_c(&die_gen_c);
-			c_n[i] = *die_c++;
-		}
-
-		Vec tr_c(COL_C);
-		for(int i = 0; i < COL_C; i++)
-		{
-			double prod_c_t = 0;
-			for(int j = 0; j < COL_C; j++)
+			if(COL_C==2)
 			{
-				prod_c_t += g_c[i][j]*c_n[j];
+				for(int i = 0; i < 2; i++)
+				{
+					gen_type2 die_gen_c(generator, distribution_type2(c_t[i],(*sd_mcmc)));
+					boost::generator_iterator<gen_type2> die_c(&die_gen_c);
+					c_n[i] = *die_c++;
+					tr_c[i] = c_n[i];
+				}
 			}
-			tr_c[i] = prod_c_t;
+			else
+			{
+				gen_type2 die_gen_c(generator, distribution_type2(c_t[0],(*sd_mcmc)));
+				boost::generator_iterator<gen_type2> die_c(&die_gen_c);
+				c_n[0] = *die_c++;
+				tr_c[0] = c_n[0];
+			}
 		}
-
-		step = VAR_E;
-		if(step>0.05)
-		{step = (*sd_mcmc);}
 
 		Vec e_n(COL_E);
-		if((penal_e==2)&&(VAR_E>0))
+		Vec tr_e(COL_E);
+		
+		if(COL_E>2)
 		{
-			for(int i = 0; i < (COL_E-penal_e); i++)
+			step = VAR_E;
+			if(step>0.05)
+			{step = (*sd_mcmc);}
+
+		
+			if((penal_e==2)&&(VAR_E>0))
 			{
-				gen_type2 die_gen_e(generator, distribution_type2(e_t[i],step));
+				for(int i = 0; i < (COL_E-penal_e); i++)
+				{
+					gen_type2 die_gen_e(generator, distribution_type2(e_t[i],step));
+					boost::generator_iterator<gen_type2> die_e(&die_gen_e);
+					e_n[i] = *die_e++;
+				}
+			}
+			else
+			{
+				for(int i = 0; i < (COL_E-penal_e); i++)
+				{	
+					e_n[i] = 0;
+				}
+			}
+			for(int i = (COL_E-penal_e); i < COL_E; i++)
+			{
+				gen_type2 die_gen_e(generator, distribution_type2(e_t[i],(*sd_mcmc)));
 				boost::generator_iterator<gen_type2> die_e(&die_gen_e);
 				e_n[i] = *die_e++;
 			}
+
+			for(int i = 0; i < COL_E; i++)
+			{
+				double prod_e_t = 0;
+				for(int j = 0; j < COL_E; j++)
+				{
+					prod_e_t += g_e[i][j]*e_n[j];
+				}
+				tr_e[i] = prod_e_t;
+			}
 		}
 		else
 		{
-			for(int i = 0; i < (COL_E-penal_e); i++)
-			{	
-				e_n[i] = 0;
-			}
-		}
-		for(int i = (COL_E-penal_e); i < COL_E; i++)
-		{
-			gen_type2 die_gen_e(generator, distribution_type2(e_t[i],(*sd_mcmc)));
-			boost::generator_iterator<gen_type2> die_e(&die_gen_e);
-			e_n[i] = *die_e++;
-		}
-
-		Vec tr_e(COL_E);
-		for(int i = 0; i < COL_E; i++)
-		{
-			double prod_e_t = 0;
-			for(int j = 0; j < COL_E; j++)
+			if(COL_E==2)
 			{
-				prod_e_t += g_e[i][j]*e_n[j];
+				for(int i = 0; i < 2; i++)
+				{
+					gen_type2 die_gen_e(generator, distribution_type2(e_t[i],(*sd_mcmc)));
+					boost::generator_iterator<gen_type2> die_e(&die_gen_e);
+					e_n[i] = *die_e++;
+					tr_e[i] = e_n[i];
+				}
 			}
-			tr_e[i] = prod_e_t;
+			else
+			{
+				gen_type2 die_gen_e(generator, distribution_type2(e_t[0],(*sd_mcmc)));
+				boost::generator_iterator<gen_type2> die_e(&die_gen_e);
+				e_n[0] = *die_e++;
+				tr_e[0] = e_n[0];
+			}
 		}
 		
 		double new_lik = 0;
@@ -1113,7 +1187,7 @@ void ci_mh_atctet(double *result,int * num_p_mz, int * num_p_dz,
 		}
 
 		temp_d_a = 0;
-		if(VAR_A>0)
+		if((COL_A>2)&&(VAR_A>0))
 		{
 			for(int i = 0; i < COL_A; i++)
 				for(int j = 0; j < COL_A; j++)
@@ -1124,7 +1198,7 @@ void ci_mh_atctet(double *result,int * num_p_mz, int * num_p_dz,
 		}
 
 		temp_d_c = 0;
-		if(VAR_C>0)
+		if((COL_C>2)&&(VAR_C>0))
 		{
 			for(int i = 0; i < COL_C; i++)
 				for(int j = 0; j < COL_C; j++)
@@ -1135,7 +1209,7 @@ void ci_mh_atctet(double *result,int * num_p_mz, int * num_p_dz,
 		}
 
 		temp_d_e = 0;
-		if(VAR_E>0)
+		if((COL_E>2)&&(VAR_E>0))
 		{
 			for(int i = 0; i < COL_E; i++)
 				for(int j = 0; j < COL_E; j++)
@@ -1294,7 +1368,7 @@ void ci_mh_atctet(double *result,int * num_p_mz, int * num_p_dz,
 	
 }
 
-
+/*
 void ci_mh_atet(double *result,int * num_p_mz, int * num_p_dz, int * num_col_a, int * num_col_e, double *ph_m, double *ph_d, 
 	double *B_des_a_m, double *B_des_a_d, double *B_des_e_m, double *B_des_e_d, double * G_a, double * G_e,
 	double *var_b_a, double *var_b_e, int *D_a, int *D_e, int *iter_n, int *burn, double *sd_mcmc)
@@ -1696,3 +1770,4 @@ void ci_mh_atet(double *result,int * num_p_mz, int * num_p_dz, int * num_col_a, 
 	}
 	
 }
+*/
