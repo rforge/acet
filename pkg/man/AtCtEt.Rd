@@ -9,7 +9,7 @@ The ACE(t) model with the A, C and E variance components as functions with respe
 }
 \usage{
 AtCtEt(data_m, data_d, mod = c('d','d','d'), knot_a = 5, knot_c = 5, knot_e = 5, 
-boot=FALSE, num_b = 100, init = rep(0,3))
+boot=FALSE, num_b = 100, init = rep(0,3), robust = 0)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -45,6 +45,10 @@ The number of replicates when the bootstrap method is used (i.e. \eqn{boot=TRUE}
 A 3x1 vector of the initial values for the optimization. The default values are 1.
 }
 
+ \item{robust}{
+An integer indicating the number of different initial values that the function will randomly generate and try in the optimization. The default value is 0.
+}
+
 }
 
 \value{
@@ -68,6 +72,7 @@ A 3x1 vector of the initial values for the optimization. The default values are 
 
 \details{
 If the variance is close to the boundary (0), it is better to use the bootstrap method to get the CIs.  
+The optimization algorithm may sometimes end up with a local minimum. It is recommended to try different random initial values by setting 'robust'.
 }
 
 

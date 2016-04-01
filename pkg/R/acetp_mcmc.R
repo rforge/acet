@@ -69,7 +69,9 @@ if(class(AtCtEtp)!='AtCtEtp_model')
 }
 
 T_m <- AtCtEtp$T_m
+num_m <- length(T_m)
 T_d <- AtCtEtp$T_d
+num_d <- length(T_d)
 
 t_int <- max(c(T_m,T_d))-min(c(T_m,T_d))
 l_m_1 <- (max(c(T_m,T_d))-T_m)/t_int

@@ -115,6 +115,69 @@ plot_AtCtEt_h <- function(AtCtEt, boot=FALSE)
 	
 	# legend(x[1], max_v, c('Additive genetic component','Common environmental component', 'Unique environmental component'), col = c('red','blue','pink'), lty=c(1,1,1), lwd=c(2,2,2))
 	}else{
+		model_cur <- AtCtEt
+
+		l_a <- length(model_cur$beta_a_mc)
+		l_c <- length(model_cur$beta_c_mc)
+		l_e <- length(model_cur$beta_e_mc)
+		if((l_a==1)&(model_cur$beta_a_mc[1]==-Inf))
+		{stop('The current model has no additive genetic component.')}
+
+
+		order <- 3
+		p_n <- 500
+		x <- seq(from=model_cur$min_t, to=model_cur$max_t, length.out=p_n)
+		t_int <- model_cur$max_t-model_cur$min_t
+		l_m_1 <- (model_cur$max_t-x)/t_int
+		l_m_2 <- (x-model_cur$min_t)/t_int
+
+		if(length(model_cur$beta_a_mc)>2)
+		{
+			bb_a <- splineDesign(model_cur$knots_a, x = x, ord=order, outer.ok = TRUE)
+		}else{
+			if(length(model_cur$beta_a_mc)==2)
+			{
+				bb_a <- matrix(NA, p_n, 2)
+				bb_a[,1] <- l_m_1
+				bb_a[,2] <- l_m_2
+			}else{
+				bb_a <- matrix(1, p_n, 1)
+			}
+		}
+		points_a <- exp(bb_a%*%model_cur$beta_a_mc)
+
+		if(length(model_cur$beta_c_mc)>2)
+		{
+			bb_c <- splineDesign(model_cur$knots_c, x = x, ord=order, outer.ok = TRUE)
+		}else{
+			if(length(model_cur$beta_c_mc)==2)
+			{
+				bb_c <- matrix(NA, p_n, 2)
+				bb_c[,1] <- l_m_1
+				bb_c[,2] <- l_m_2
+			}else{
+				bb_c <- matrix(1, p_n, 1)
+			}
+		}
+		points_c <- exp(bb_c%*%model_cur$beta_c_mc)
+
+		if(length(model_cur$beta_e_mc)>2)
+		{
+			bb_e <- splineDesign(model_cur$knots_e, x = x, ord=order, outer.ok = TRUE)
+		}else{
+			if(length(model_cur$beta_e_mc)==2)
+			{
+				bb_e <- matrix(NA, p_n, 2)
+				bb_e[,1] <- l_m_1
+				bb_e[,2] <- l_m_2
+			}else{
+				bb_e <- matrix(1, p_n, 1)
+			}
+		}
+		points_e <- exp(bb_e%*%model_cur$beta_e_mc)
+
+		points_h <- points_a/(points_a+points_c+points_e)	
+
 		
 	}
 }
