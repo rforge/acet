@@ -27,21 +27,25 @@ plot_AtCtEt_h <- function(AtCtEt, boot=FALSE)
 		#pheno_d <- c(t(data_d[,1:2]))
 		#T_m <- rep(data_m[,3], each=2)
 		#T_d <- rep(data_d[,3], each=2)
-
+    n_beta <- 1:(l_a+l_c+l_e)
 		order <- 3
 		x <- seq(from=model_cur$min_t, to=model_cur$max_t, length.out=500)
-		if(model_cur$n_beta_c>1)
-		{
-			bb_c <- splineDesign(model_cur$knots_c, x = x, ord=order, outer.ok = TRUE)
-		}else{
-			bb_c <- splineDesign(model_cur$knots_c, x = x, ord=1, outer.ok = TRUE)
-		}
-	
 		if(model_cur$n_beta_a>1)
 		{
 			bb_a <- splineDesign(model_cur$knots_a, x = x, ord=order, outer.ok = TRUE)
 		}else{
 			bb_a <- splineDesign(model_cur$knots_a, x = x, ord=1, outer.ok = TRUE)
+			if(model_cur$beta_a[1]==-Inf)
+		  {n_beta[1]=0}
+		}
+		
+		if(model_cur$n_beta_c>1)
+		{
+			bb_c <- splineDesign(model_cur$knots_c, x = x, ord=order, outer.ok = TRUE)
+		}else{
+			bb_c <- splineDesign(model_cur$knots_c, x = x, ord=1, outer.ok = TRUE)
+			if(model_cur$beta_c[1]==-Inf)
+		  {n_beta[model_cur$n_beta_a+1]=0}
 		}
 	
 		if(model_cur$n_beta_e>1)
@@ -57,7 +61,7 @@ plot_AtCtEt_h <- function(AtCtEt, boot=FALSE)
 		points_h <- points_a/(points_a+points_c+points_e)	
 
 		#fisher <- solve(model_cur$hessian[2:(1+l_a+l_c),2:(1+l_a+l_c)])
-		fisher <- solve(model_cur$hessian)
+		fisher <- solve(model_cur$hessian[n_beta,n_beta])
 	
 		max_v <- max(points_h)*1.2
 		plot(range(x), c(0,max_v), type = "n", xlab = "Age", ylab = "Heritability",main =  "Dynamic heritability")
@@ -75,8 +79,9 @@ plot_AtCtEt_h <- function(AtCtEt, boot=FALSE)
 			polygon(c(AtCtEt$boot$x, rev(AtCtEt$boot$x)),c(AtCtEt$boot$upper.ci_h, rev(AtCtEt$boot$lower.ci_h)),col='grey',border = NA, lty=3, density=20)
 		
 		}else{
-	
-			e_a <- exp(bb_c%*%model_cur$beta_c-bb_a%*%model_cur$beta_a)
+		  e_a <- rep(0,length(x))
+	    if(model_cur$beta_c[1]!=-Inf)
+			{e_a <- exp(bb_c%*%model_cur$beta_c-bb_a%*%model_cur$beta_a)}
 			e_b <- exp(bb_e%*%model_cur$beta_e-bb_a%*%model_cur$beta_a)
 			lower <- rep(NA, length(x))
 			upper <- rep(NA, length(x))
@@ -84,14 +89,24 @@ plot_AtCtEt_h <- function(AtCtEt, boot=FALSE)
 			flag <- 0
 			for(i in 1:length(x))
 			{
-				P <- matrix(NA,2,l_a+l_c+l_e)
-				P[1,] <- c((-1)*bb_a[i,],bb_c[i,],rep(0,l_e))
-				P[2,] <- c((-1)*bb_a[i,],rep(0,l_c),bb_e[i,])
+				if(model_cur$beta_c[1]!=-Inf)
+				{
+			    P <- matrix(NA,2,l_a+l_c+l_e)
+				  P[1,] <- c((-1)*bb_a[i,],bb_c[i,],rep(0,l_e))
+				  P[2,] <- c((-1)*bb_a[i,],rep(0,l_c),bb_e[i,])
+				  Sigma <- P%*%fisher%*%t(P)
+	      
+				  delta <- t(c(e_a[i],e_b[i]))%*%Sigma%*%c(e_a[i],e_b[i])
+				  delta <- delta*((1+e_a[i]+e_b[i])^(-4))
+				}else{
+				  P <- matrix(NA,1,l_a+l_e)
+				  P[1,] <- c((-1)*bb_a[i,],bb_e[i,])
+				  Sigma <- P%*%fisher%*%t(P)
+	      
+				  delta <- t(e_b[i])%*%Sigma%*%e_b[i]
+				  delta <- delta*((1+e_b[i])^(-4))
+				}
 
-				Sigma <- P%*%fisher%*%t(P)
-	
-				delta <- t(c(e_a[i],e_b[i]))%*%Sigma%*%c(e_a[i],e_b[i])
-				delta <- delta*((1+e_a[i]+e_b[i])^(-4))
 				if(delta>=0)
 				{
 				sd[i] <- sqrt(delta)
