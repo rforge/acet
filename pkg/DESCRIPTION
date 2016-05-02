@@ -13,4 +13,3 @@ Imports:
 Encoding: latin1
 LinkingTo: BH, RcppArmadillo, Rcpp
 Suggests: knitr (>= 1.12.1), rmarkdown (>= 0.9.5)
-VignetteBuilder: knitr
