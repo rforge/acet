@@ -13,7 +13,7 @@ The package implements two novel twin models that are able to estimate dynamic b
 Package: \tab ACEt\cr
 Type: \tab Package\cr
 Version: \tab 1.5.6\cr
-Date: \tab 2016-04-30\cr
+Date: \tab 2016-05-02\cr
 License: \tab GPL \cr
 }
 }
@@ -24,7 +24,7 @@ Maintainer: Liang He <liang.he@duke.edu>
 
 }
 \references{
-He, L., Sillanp‰‰, M. J., Silventoinen, K., Kaprio, J., & Pitk‰niemi, J. (2016). Estimating Modifying Effect of Age on Genetic and Environmental Variance Components in Twin Models. Genetics, genetics-115.
+He, L., Sillanp‰‰, M. J., Silventoinen, K., Kaprio, J., & Pitk‰niemi, J. (2016). Estimating Modifying Effect of Age on Genetic and Environmental Variance Components in Twin Models. Genetics, 202(4), 1313-1328.
 }
 \keyword{ package }
 

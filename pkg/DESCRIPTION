@@ -2,7 +2,7 @@ Package: ACEt
 Type: Package
 Title: Estimating Age Modification Effect on Genetic and Environmental Variance Components in Twin Models
 Version: 1.5.6
-Date: 2016-04-30
+Date: 2016-05-02
 Author: Liang He
 Maintainer: Liang He <liang.he@duke.edu>
 Description: Twin models that are able to estimate the dynamic behaviour of the variance components in the classical twin models with respect to age using B-splines and P-splines.
