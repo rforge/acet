@@ -12,12 +12,6 @@ acetp_mcmc <- function(acetp, iter_num = 10000, sd = 0.1, burnin =1000)
 	}
 
 
-	if(class(acetp)=='AtCtEp_model')
-	{
-		res <- AtCtEp_mcmc(acetp, iter_num, sd, burnin)
-		return(res)
-	}
-
 	if(class(acetp)=='AtCtEtp_model')
 	{
 		res <- AtCtEtp_mcmc(acetp, iter_num, sd, burnin)
@@ -34,30 +28,6 @@ acetp_mcmc <- function(acetp, iter_num = 10000, sd = 0.1, burnin =1000)
 
 
 
-AtCtEp_mcmc <-
-function(AtCtEp, iter_num = 10000, sd = 0.1, burnin =1000)
-{
-
-if(class(AtCtEp)!='AtCtEp_model')
-{
-	stop('The first parameter must be an object obtained from the AtCtEp function.')
-}
-
-order <- 3
-
-B_des_a_m <- splineDesign(AtCtEp$knot_a, x=AtCtEp$T_m, ord=order)
-B_des_a_d <- splineDesign(AtCtEp$knot_a, x=AtCtEp$T_d, ord=order)
-B_des_c_m <- splineDesign(AtCtEp$knot_c, x=AtCtEp$T_m, ord=order)
-B_des_c_d <- splineDesign(AtCtEp$knot_c, x=AtCtEp$T_d, ord=order)
-
-result <- mcmc_epsp(AtCtEp$pheno_m, AtCtEp$pheno_d, B_des_a_m, B_des_a_d, B_des_c_m, B_des_c_d, AtCtEp$var, AtCtEp$var_b_a, AtCtEp$var_b_c, AtCtEp$D_a, AtCtEp$D_c, iter_num, burnin, sd)
-
-AtCtEp_mc_mod <- list(beta_a_mc=result$beta_a_mc, beta_c_mc=result$beta_c_mc, cov_a_mc = result$cov_a, cov_c_mc = result$cov_c, knots_a=AtCtEp$knot_a, knots_c=AtCtEp$knot_c, min_t = min(AtCtEp$T_m, AtCtEp$T_d), max_t = max(AtCtEp$T_m, AtCtEp$T_d))
-
-class(AtCtEp_mc_mod) <- 'AtCtEp_mc_model'
-
-return(AtCtEp_mc_mod)
-}
 
 AtCtEtp_mcmc <-
 function(AtCtEtp, iter_num = 10000, sd = 0.1, burnin =1000)
@@ -143,31 +113,3 @@ class(AtCtEtp_mc_mod) <- 'AtCtEtp_mc_model'
 
 return(AtCtEtp_mc_mod)
 }
-
-AtEtp_mcmc <-
-function(AtEtp, iter_num = 10000, sd = 0.1, burnin =1000)
-{
-
-if(class(AtEtp)!='AtEtp_model')
-{
-	stop('The first parameter must be an object obtained from the AtEtp function.')
-}
-
-model_cur <- AtEtp
-
-order <- 3
-
-B_des_a_m <- splineDesign(model_cur$knot_a, x=model_cur$T_m, ord=order)
-B_des_a_d <- splineDesign(model_cur$knot_a, x=model_cur$T_d, ord=order)
-B_des_e_m <- splineDesign(model_cur$knot_e, x=model_cur$T_m, ord=order)
-B_des_e_d <- splineDesign(model_cur$knot_e, x=model_cur$T_d, ord=order)
-
-result <- mcmc_epsp_AtEt(model_cur$pheno_m, model_cur$pheno_d, B_des_a_m, B_des_a_d, B_des_e_m, B_des_e_d, model_cur$var_b_a, model_cur$var_b_e, model_cur$D_a, model_cur$D_e, iter_num, burnin, sd)
-
-AtEtp_mc_mod <- list(beta_a_mc=result$beta_a_mc, beta_e_mc=result$beta_e_mc, cov_a_mc = result$cov_a, cov_e_mc = result$cov_e, knots_a=model_cur$knot_a, knots_e=model_cur$knot_e, min_t = min(AtEtp$T_m, AtEtp$T_d), max_t = max(AtEtp$T_m, AtEtp$T_d))
-
-class(AtEtp_mc_mod) <- 'AtEtp_mc_model'
-
-return(AtEtp_mc_mod)
-}
-
