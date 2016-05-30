@@ -18,11 +18,11 @@ acetp_mcmc <- function(acetp, iter_num = 10000, sd = 0.1, burnin =1000)
 		return(res)
 	}
 
-	if(class(acetp)=='AtEtp_model')
-	{
-		res <- AtEtp_mcmc(acetp, iter_num, sd, burnin)
-		return(res)
-	}
+	#if(class(acetp)=='AtEtp_model')
+	#{
+	#	res <- AtEtp_mcmc(acetp, iter_num, sd, burnin)
+	#	return(res)
+	#}
 	
 }
 

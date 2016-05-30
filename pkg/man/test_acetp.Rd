@@ -8,7 +8,7 @@ Hypothesis testing of the ACE(t)-p models
 Comparison of different ACE(t)-p models to test a linear or a constant variance component.
 }
 \usage{
-test_acetp(acetp, comp, sim = 200, robust = 0, pe = TRUE)
+test_acetp(acetp, comp, sim = 100, robust = 0, pe = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -43,7 +43,7 @@ A logical argument indicating whether to use penalized spline model to test line
 }
 
 \details{
-When pe=TRUE, the linearity is tested under a p-spline framework in which an LRT is performed. Otherwise, a \chi^2 test is performed for linearity under a spline framework without penalty on smoothness.
+When pe=TRUE, the linearity is tested under a p-spline framework in which an LRT is performed. Otherwise, a \eqn{\chi^2} test is performed for linearity under a spline framework without penalty on smoothness.
 }
 
 
