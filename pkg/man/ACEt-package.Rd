@@ -12,8 +12,8 @@ The package implements two novel twin models that are able to estimate dynamic b
 \tabular{ll}{
 Package: \tab ACEt\cr
 Type: \tab Package\cr
-Version: \tab 1.6.3\cr
-Date: \tab 2016-05-22\cr
+Version: \tab 1.6.7\cr
+Date: \tab 2016-05-29\cr
 License: \tab GPL \cr
 }
 }

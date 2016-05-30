@@ -8,7 +8,7 @@ Hypothesis testing of the ACE(t)-p models
 Comparison of different ACE(t)-p models to test a linear or a constant variance component.
 }
 \usage{
-test_acetp(acetp, comp, sim = 200, robust = 0, var = TRUE)
+test_acetp(acetp, comp, sim = 200, robust = 0, pe = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,12 +20,15 @@ An object from the AtCtEtp function.
 The component to test linearity or constant. The variance of this component must be dynamic or linear in the object from the AtCtEtp function. 
 }
   \item{sim}{
-The number of simulations for approximating the null distribution for testing linearity.
+The number of the bootstrap resampling for approximating the null distribution when testing linearity.
 }
   \item{robust}{
 An integer indicating the number of different initial values that the function will randomly generate and try in the optimization. The default value is 0.
 }
 
+  \item{pe}{
+A logical argument indicating whether to use penalized spline model to test linearity. The default value is TRUE.
+}
  
 }
 
@@ -34,9 +37,13 @@ An integer indicating the number of different initial values that the function w
   \item{p }{The p-value for the test.}
   \item{llr }{The LRT statistic for testing linearity.}
   \item{llr_sim }{The simulated null distribution of the LRT statistic for testing linearity.}
-  \item{chisq }{The chisq statistic for testing constant variance.}
+  \item{chisq }{The chisq statistic for testing a constant or linearity.}
   
 %% ...
+}
+
+\details{
+When pe=TRUE, the linearity is tested under a p-spline framework in which an LRT is performed. Otherwise, a \chi^2 test is performed for linearity under a spline framework without penalty on smoothness.
 }
 
 

@@ -1,5 +1,5 @@
 test_acetp <-
-function(acetp, comp, sim = 200, robust = 0, var = TRUE)
+function(acetp, comp, sim = 100, robust = 0, pe = TRUE)
 {
 	if(!(class(acetp) %in% c('AtCtEtp_model')))
 	{
@@ -18,6 +18,8 @@ function(acetp, comp, sim = 200, robust = 0, var = TRUE)
   
   if(acetp$mod[match(comp,c('a','c','e'))]=='d')
   {
+    
+    
 	mod_a <- acetp$mod
 	mod_n <- mod_a
 	mod_n[match(comp,c('a','c','e'))] <- 'l' 
@@ -32,7 +34,12 @@ function(acetp, comp, sim = 200, robust = 0, var = TRUE)
 	
 
 	m_a <- AtCtEtp_2(data_m, data_d, knot_a=k_a, knot_c=k_c, knot_e=k_e, mod=mod_a, robust=robust)
-	# m_a <- acetp
+	
+	if(pe==FALSE)
+  {
+      p <- test_acetp_2(m_a, comp)
+      return(p)
+  }
 
 	m_n <- AtCtEtp_2(data_m, data_d, knot_a=k_a, knot_c=k_c, knot_e=k_e, mod=mod_n, robust=robust)
 
@@ -113,114 +120,62 @@ function(acetp, comp, sim = 200, robust = 0, var = TRUE)
 	  
 	if(m_n$mod[1]=='d')
 	{
-	  if(var==TRUE)
-	  {
-	    beta_a_n[1:(ncol(bb_a_m)-2)] <- rnorm(ncol(bb_a_m)-2, mean=0, sd=sqrt(var_b_a_n/ei_a$values[1:(ncol(bb_a_m)-2)]))
-	  }
-	  # beta_a_1[1:(ncol(bb_a_m)-2)] <- rnorm(ncol(bb_a_m)-2, mean=0, sd=sqrt(var_b_a_1/ei_a$values[1:(ncol(bb_a_m)-2)]))
-	  #a_m <- exp(bb_a_m%*%beta_a_1)
-	  #a_d <- exp(bb_a_d%*%beta_a_1)
-	 	a_m <- exp(bb_a_m%*%beta_a_n)
+	  
+	    pos <- sum(ei_a$values>0.5)
+      beta_a_n[1:pos] <- rnorm(pos, mean=0, sd=sqrt(var_b_a_n/ei_a$values[1:pos]))
+	  a_m <- exp(bb_a_m%*%beta_a_n)
 		a_d <- exp(bb_a_d%*%beta_a_n)
-		#ei_a <- eigen(D_a_n)
-		#D_a_n <- diag(ei_a$values)
 	}else{
 	  	if(m_n$mod[1]=='l')
-		{
-			#bb_a_m <- bb_a_m%*%ei_a$vectors
-			#bb_a_d <- bb_a_d%*%ei_a$vectors
-			#bb_a_m <- bb_a_m[,(ncol(bb_a_m)-1):ncol(bb_a_m)]
-			#bb_a_d <- bb_a_d[,(ncol(bb_a_d)-1):ncol(bb_a_d)]
-			a_m <- exp(bb_a_m[,(ncol(bb_a_m)-1):ncol(bb_a_m)]%*%beta_a_n)
-			a_d <- exp(bb_a_d[,(ncol(bb_a_d)-1):ncol(bb_a_d)]%*%beta_a_n)
-			#a_m <- exp(bb_a_m[,(ncol(bb_a_m)-1):ncol(bb_a_m)]%*%beta_a_1[(length(beta_a_1)-1):length(beta_a_1)])
-			#a_d <- exp(bb_a_d[,(ncol(bb_a_d)-1):ncol(bb_a_d)]%*%beta_a_1[(length(beta_a_1)-1):length(beta_a_1)])
-			#D_a_n <- matrix(0,2,2)
-		}else{
-			#bb_a_m <- matrix(1, num_m, 1)
-			#bb_a_d <- matrix(1, num_d, 1)
-			a_m <- exp(beta_a_n*matrix(1, num_m, 1))
-			a_d <- exp(beta_a_n*matrix(1, num_d, 1))
-			#a_m <- exp(beta_a_1*matrix(1, num_m, 1))
-			#a_d <- exp(beta_a_1*matrix(1, num_d, 1))
-			#D_a_n <- matrix(0,1,1)
-		}
+		  {			
+			  a_m <- exp(bb_a_m[,(ncol(bb_a_m)-1):ncol(bb_a_m)]%*%beta_a_n)
+			  a_d <- exp(bb_a_d[,(ncol(bb_a_d)-1):ncol(bb_a_d)]%*%beta_a_n)			
+		  }else{			
+			  a_m <- exp(beta_a_n*matrix(1, num_m, 1))
+			  a_d <- exp(beta_a_n*matrix(1, num_d, 1))			
+		  }
 	}
 	
 	if(m_n$mod[2]=='d')
 	{
-		if(var==TRUE)
-		{
-	    beta_c_n[1:(ncol(bb_c_m)-2)] <- rnorm(ncol(bb_c_m)-2, mean=0, sd=sqrt(var_b_c_n/ei_c$values[1:(ncol(bb_c_m)-2)]))
-		}
-	  # beta_c_1[1:(ncol(bb_c_m)-2)] <- rnorm(ncol(bb_c_m)-2, mean=0, sd=sqrt(var_b_c_1/ei_c$values[1:(ncol(bb_c_m)-2)]))
-	  #c_m <- exp(bb_c_m%*%beta_c_1)
-	  #c_d <- exp(bb_c_d%*%beta_c_1)
-	  c_m <- exp(bb_c_m%*%beta_c_n)
-		c_d <- exp(bb_c_d%*%beta_c_n)
-		#ei_c <- eigen(D_c_n)
+		  pos <- sum(ei_c$values>0.5)
+      beta_c_n[1:pos] <- rnorm(pos, mean=0, sd=sqrt(var_b_c_n/ei_c$values[1:pos]))
 		
-		#D_c_n <- diag(ei_c$values)
-	}else{
+	    c_m <- exp(bb_c_m%*%beta_c_n)
+		  c_d <- exp(bb_c_d%*%beta_c_n)
+		
+	  }else{
 		
 	  	if(m_n$mod[2]=='l')
-		{
-			#bb_c_m <- bb_c_m%*%ei_c$vectors
-			#bb_c_d <- bb_c_d%*%ei_c$vectors
-			#bb_c_m <- bb_c_m[,(ncol(bb_c_m)-1):ncol(bb_c_m)]
-			#bb_c_d <- bb_c_d[,(ncol(bb_c_d)-1):ncol(bb_c_d)]
-			c_m <- exp(bb_c_m[,(ncol(bb_c_m)-1):ncol(bb_c_m)]%*%beta_c_n)
-			c_d <- exp(bb_c_d[,(ncol(bb_c_d)-1):ncol(bb_c_d)]%*%beta_c_n)
-			#c_m <- exp(bb_c_m[,(ncol(bb_c_m)-1):ncol(bb_c_m)]%*%beta_c_1[(length(beta_c_1)-1):length(beta_c_1)])
-			#c_d <- exp(bb_c_d[,(ncol(bb_c_d)-1):ncol(bb_c_d)]%*%beta_c_1[(length(beta_c_1)-1):length(beta_c_1)])
-			#D_c_n <- matrix(0,2,2)
-		}else{
-			#bb_c_m <- matrix(1, num_m, 1)
-			#bb_c_d <- matrix(1, num_d, 1)
-			c_m <- exp(beta_c_n*matrix(1, num_m, 1))
-			c_d <- exp(beta_c_n*matrix(1, num_d, 1))
-			#c_m <- exp(beta_c_1*matrix(1, num_m, 1))
-			#c_d <- exp(beta_c_1*matrix(1, num_d, 1))
-			#D_c_n <- matrix(0,1,1)
-		}
+		  {	
+			  c_m <- exp(bb_c_m[,(ncol(bb_c_m)-1):ncol(bb_c_m)]%*%beta_c_n)
+			  c_d <- exp(bb_c_d[,(ncol(bb_c_d)-1):ncol(bb_c_d)]%*%beta_c_n)			
+		  }else{			
+			  c_m <- exp(beta_c_n*matrix(1, num_m, 1))
+			  c_d <- exp(beta_c_n*matrix(1, num_d, 1))			
+		  }
 	}
 	
 	if(m_n$mod[3]=='d')
 	{
-		if(var==TRUE)
-		{
-	    beta_e_n[1:(ncol(bb_e_m)-2)] <- rnorm(ncol(bb_e_m)-2, mean=0, sd=sqrt(var_b_e_n/ei_e$values[1:(ncol(bb_e_m)-2)]))
-		}
-	  # beta_e_1[1:(ncol(bb_e_m)-2)] <- rnorm(ncol(bb_e_m)-2, mean=0, sd=sqrt(var_b_e_1/ei_e$values[1:(ncol(bb_e_m)-2)]))
-	  #e_m <- exp(bb_e_m%*%beta_e_1)
-	  #e_d <- exp(bb_e_d%*%beta_e_1)
+		 pos <- sum(ei_e$values>0.5)
+      beta_e_n[1:pos] <- rnorm(pos, mean=0, sd=sqrt(var_b_e_n/ei_e$values[1:pos]))
+		
 	  e_m <- exp(bb_e_m%*%beta_e_n)
 		e_d <- exp(bb_e_d%*%beta_e_n)
-		#ei_e <- eigen(D_e_n)
 		
-		#D_e_n <- diag(ei_e$values)
 	}else{
 		
 	  	if(m_n$mod[3]=='l')
 		{
 			
-			#bb_e_m <- bb_e_m%*%ei_e$vectors
-			#bb_e_d <- bb_e_d%*%ei_e$vectors
-			#bb_e_m <- bb_e_m[,(ncol(bb_e_m)-1):ncol(bb_e_m)]
-			#bb_e_d <- bb_e_d[,(ncol(bb_e_d)-1):ncol(bb_e_d)]
 			e_m <- exp(bb_e_m[,(ncol(bb_e_m)-1):ncol(bb_e_m)]%*%beta_e_n)
 			e_d <- exp(bb_e_d[,(ncol(bb_e_d)-1):ncol(bb_e_d)]%*%beta_e_n)
-			#e_m <- exp(bb_e_m[,(ncol(bb_e_m)-1):ncol(bb_e_m)]%*%beta_e_1[(length(beta_e_1)-1):length(beta_e_1)])
-			#e_d <- exp(bb_e_d[,(ncol(bb_e_d)-1):ncol(bb_e_d)]%*%beta_e_1[(length(beta_e_1)-1):length(beta_e_1)])
-			#D_e_n <- matrix(0,2,2)
+			
 		}else{
-			#bb_e_m <- matrix(1, num_m, 1)
-			#bb_e_d <- matrix(1, num_d, 1)
+			
 			e_m <- exp(beta_e_n*matrix(1, num_m, 1))
 			e_d <- exp(beta_e_n*matrix(1, num_d, 1))
-			#e_m <- exp(beta_e_1*matrix(1, num_m, 1))
-			#e_d <- exp(beta_e_1*matrix(1, num_d, 1))
-			#D_e_n <- matrix(0,1,1)
 		}
 	}
 		for(j in 1:nrow(sim_m))
@@ -235,7 +190,6 @@ function(acetp, comp, sim = 200, robust = 0, var = TRUE)
 		}
 
 		s_a <- AtCtEtp_2(sim_m, sim_d, knot_a=k_a, knot_c=k_c, knot_e=k_e, mod=mod_a, robust=robust)
-	# m_a <- acetp
 
 	  s_n <- AtCtEtp_2(sim_m, sim_d, knot_a=k_a, knot_c=k_c, knot_e=k_e, mod=mod_n, robust=robust)
 
@@ -245,7 +199,7 @@ function(acetp, comp, sim = 200, robust = 0, var = TRUE)
 	p <- sum(llr_sim>llr)/sim
 	test <- list(p = p, llr = llr, llr_sim=llr_sim)
   }else{
-    re <- acetp_mcmc(acetp,iter_num=5000)
+    re <- acetp_mcmc(acetp,iter_num=10000)
     num_v <- 0
     if(sum(acetp$mod=='d')>0)
     {

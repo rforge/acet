@@ -1672,33 +1672,10 @@ void ci_mh_atctet_2(double *result,int * num_p_mz, int * num_p_dz,
 		}
 		
 		double temp_d_a = 0;
-		/*
-		for(int i = 0; i < COL_A; i++)
-			for(int j = 0; j < COL_A; j++)
-			{
-				temp_d_a += a_t[i]*D_A[i][j]*a_t[j];
-			}
-		temp_d_a /= VAR_A;
-		*/
+		
 		double temp_d_c = 0;
-		/*
-		for(int i = 0; i < COL_C; i++)
-			for(int j = 0; j < COL_C; j++)
-			{
-				temp_d_c += c_t[i]*D_C[i][j]*c_t[j];
-			}
-		temp_d_c /= VAR_C;
-		*/
 
 		double temp_d_e = 0;
-		/*
-		for(int i = 0; i < COL_E; i++)
-			for(int j = 0; j < COL_E; j++)
-			{
-				temp_d_e += e_t[i]*D_E[i][j]*e_t[j];
-			}
-		temp_d_e /= VAR_E;
-		*/
 
 		lik = YSY_m + YSY_d + D_m + D_d + temp_d_a + temp_d_c + temp_d_e;
 		Vec map_a(COL_A);
@@ -1709,7 +1686,6 @@ void ci_mh_atctet_2(double *result,int * num_p_mz, int * num_p_dz,
 	{
 		double step = 0;
 		Vec a_n(COL_A);
-		Vec tr_a(COL_A);
 		if(COL_A>2)
 		{
 			step = VAR_A;
