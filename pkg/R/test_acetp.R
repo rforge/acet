@@ -121,8 +121,7 @@ function(acetp, comp, sim = 100, robust = 0, pe = TRUE)
 	if(m_n$mod[1]=='d')
 	{
 	  
-	    pos <- sum(ei_a$values>0.5)
-      beta_a_n[1:pos] <- rnorm(pos, mean=0, sd=sqrt(var_b_a_n/ei_a$values[1:pos]))
+	  beta_a_n[1:(ncol(bb_a_m)-2)] <- rnorm(ncol(bb_a_m)-2, mean=0, sd=sqrt(var_b_a_n/ei_a$values[1:(ncol(bb_a_m)-2)]))
 	  a_m <- exp(bb_a_m%*%beta_a_n)
 		a_d <- exp(bb_a_d%*%beta_a_n)
 	}else{
@@ -138,9 +137,7 @@ function(acetp, comp, sim = 100, robust = 0, pe = TRUE)
 	
 	if(m_n$mod[2]=='d')
 	{
-		  pos <- sum(ei_c$values>0.5)
-      beta_c_n[1:pos] <- rnorm(pos, mean=0, sd=sqrt(var_b_c_n/ei_c$values[1:pos]))
-		
+	    beta_c_n[1:(ncol(bb_c_m)-2)] <- rnorm(ncol(bb_c_m)-2, mean=0, sd=sqrt(var_b_c_n/ei_c$values[1:(ncol(bb_c_m)-2)]))
 	    c_m <- exp(bb_c_m%*%beta_c_n)
 		  c_d <- exp(bb_c_d%*%beta_c_n)
 		
@@ -158,9 +155,8 @@ function(acetp, comp, sim = 100, robust = 0, pe = TRUE)
 	
 	if(m_n$mod[3]=='d')
 	{
-		 pos <- sum(ei_e$values>0.5)
-      beta_e_n[1:pos] <- rnorm(pos, mean=0, sd=sqrt(var_b_e_n/ei_e$values[1:pos]))
-		
+	  beta_e_n[1:(ncol(bb_e_m)-2)] <- rnorm(ncol(bb_e_m)-2, mean=0, sd=sqrt(var_b_e_n/ei_e$values[1:(ncol(bb_e_m)-2)]))
+	  
 	  e_m <- exp(bb_e_m%*%beta_e_n)
 		e_d <- exp(bb_e_d%*%beta_e_n)
 		
