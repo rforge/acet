@@ -34,7 +34,7 @@ The number of interior knots of the B-spline for the E component, which must be 
 }
 
   \item{loc}{
-	A 1x3 character ("e"/"q") vector indicating how to place knots for each component: evenly ("e") or quantile-based ("q"). The default value is "e".
+	A 1x3 character vector indicating how to place knots for each component: evenly ("e") or quantile-based ("q"). The default value is "e".
 }
 
   \item{boot}{

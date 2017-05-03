@@ -17,7 +17,7 @@ An object from the AtCtEtp function.
 
 }
   \item{comp}{
-The component to test linearity or constant. The variance of this component must be dynamic or linear in the object from the AtCtEtp function. 
+The component for which linearity or constancy is tested. This component must be specified as splines or linear in the AtCtEtp function. 
 }
   \item{sim}{
 The number of the bootstrap resampling for approximating the null distribution when testing linearity.
