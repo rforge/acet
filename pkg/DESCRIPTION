@@ -3,8 +3,7 @@ Type: Package
 Title: Estimation of Dynamic Heritability and Comparison of Twin Models
 Version: 1.8.1
 Date: 2020-10-20
-Author: Liang He
-Maintainer: Liang He <liang.he@duke.edu>
+Authors@R: person("Liang", "He", email = "liang.he@duke.edu",role = c("aut", "cre"))
 Description: Estimate the dynamic behaviour of the variance components in the classical twin models with respect to age using B-splines and P-splines.
 License: GPL (>=2)
 Depends: R (>= 3.1.1)
