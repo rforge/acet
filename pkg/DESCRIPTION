@@ -1,11 +1,11 @@
 Package: ACEt
 Type: Package
-Title: Estimating Dynamic Heritability and Twin Model Comparison
-Version: 1.8.0
-Date: 2017-04-29
+Title: Estimation of Dynamic Heritability and Comparison of Twin Models
+Version: 1.8.1
+Date: 2020-10-20
 Author: Liang He
-Maintainer: Liang He <lianghe@mit.edu>
-Description: Twin models that are able to estimate the dynamic behaviour of the variance components in the classical twin models with respect to age using B-splines and P-splines.
+Maintainer: Liang He <liang.he@duke.edu>
+Description: Estimate the dynamic behaviour of the variance components in the classical twin models with respect to age using B-splines and P-splines.
 License: GPL (>=2)
 Depends: R (>= 3.1.1)
 Imports:
